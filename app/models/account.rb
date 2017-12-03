@@ -1,4 +1,8 @@
 class Account < ApplicationRecord
+  has_many :transactions
+  has_many :payment_means
+
+
   validates_presence_of :name
   validates_presence_of :currency
 

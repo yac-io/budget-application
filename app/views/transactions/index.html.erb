@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Transactions</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Account</th>
+    <th>Payment mean</th>
+    <th>Category</th>
+    <th>Currency</th>
+    <th>Name</th>
+    <th>Amount</th>
+    <th>Settlement currency</th>
+    <th>Settlement amount</th>
+    <th>Date</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @transactions.each do |transaction| %>
+    <tr>
+      <td><%= transaction.account.name %></td>
+      <td><%= transaction.payment_mean.name %></td>
+      <td><%= transaction.category.name unless transaction.category.nil? %></td>
+      <td><%= transaction.name %></td>
+      <td><%= transaction.amount %> <%= transaction.currency %></td>
+      <td><%= transaction.settlement_amount %> <%= transaction.settlement_currency %></td>
+      <td><%= transaction.date %></td>
+      <td><%= link_to 'Show', transaction %></td>
+      <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
+      <td><%= link_to 'Destroy', transaction, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Transaction', new_transaction_path %>

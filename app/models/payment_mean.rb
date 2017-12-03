@@ -1,5 +1,6 @@
 class PaymentMean < ApplicationRecord
   belongs_to :account
+  has_many :transactions
 
   validates_presence_of :name
   validates_presence_of :currency
