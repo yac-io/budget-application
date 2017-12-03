@@ -1,6 +1,12 @@
 language: ruby
+cache:
+  - bundler
+  - yarn
+sudo: false
 rvm:
   - 2.3
+
+bundler_args: --without development
 
 services:
   - postgresql
@@ -8,3 +14,5 @@ services:
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp config/database.yml.travis config/database.yml
+  - bundle exec rake webpack:compile --trace
+
