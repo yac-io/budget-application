@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @payment_mean.name
+%p
+  %strong Currency:
+  = @payment_mean.currency
+%p
+  %strong Account:
+  = @payment_mean.account.name
+= link_to 'Edit', edit_payment_mean_path(@payment_mean)
+|
+= link_to 'Back', payment_means_path

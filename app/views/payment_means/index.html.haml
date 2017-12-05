@@ -1,0 +1,20 @@
+%p#notice= notice
+%h1 Payment Means
+%table
+  %thead
+    %tr
+      %th Name
+      %th Currency
+      %th Account
+      %th{:colspan => "3"}
+  %tbody
+    - @payment_means.each do |payment_mean|
+      %tr
+        %td= payment_mean.name
+        %td= payment_mean.currency
+        %td= payment_mean.account.name
+        %td= link_to 'Show', payment_mean
+        %td= link_to 'Edit', edit_payment_mean_path(payment_mean)
+        %td= link_to 'Destroy', payment_mean, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Payment Mean', new_payment_mean_path

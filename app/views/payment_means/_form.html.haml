@@ -1,0 +1,20 @@
+= form_with(model: payment_mean, local: true) do |form|
+  - if payment_mean.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(payment_mean.errors.count, "error")
+        prohibited this payment_mean from being saved:
+      %ul
+        - payment_mean.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :name
+    = form.text_field :name, id: :payment_mean_name
+  .field
+    = form.label :currency
+    = form.text_field :currency, id: :payment_mean_currency
+  .field
+    = form.label :account_id
+    = form.text_field :account_id, id: :payment_mean_account_id
+  .actions
+    = form.submit
