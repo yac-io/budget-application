@@ -41,6 +41,10 @@ RSpec.describe TransactionsController, type: :controller do
   # TransactionsController. Be sure to keep this updated too.
   let(:valid_session) {{}}
 
+  before :each do
+    sign_in create(:user)
+  end
+
   describe "GET #index" do
     it "returns a success response" do
       transaction = Transaction.create! valid_attributes

@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "Categories", type: :request do
+
+  before :each do
+    sign_in create(:user)
+  end
+
   describe "GET /categories" do
     it "works! (now write some real specs)" do
       get categories_path
