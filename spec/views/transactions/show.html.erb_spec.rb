@@ -2,16 +2,16 @@ require 'rails_helper'
 
 RSpec.describe "transactions/show", type: :view do
   before(:each) do
-    @transaction = assign(:transaction, Transaction.create!(
-        account: create(:account, name: 'account name'),
-        payment_mean: create(:payment_mean, name: 'payment mean name'),
-        category: create(:category, name: 'category name'),
-        name: "Name",
-        currency: "USD",
-        amount: "9.99",
-        settlement_currency: "EUR",
-        settlement_amount: "132.43",
-        date: Date.today
+    @transaction = assign(:transaction, create(:transaction,
+                                               account: create(:account, name: 'account name'),
+                                               payment_mean: create(:payment_mean, name: 'payment mean name'),
+                                               category: create(:category, name: 'category name'),
+                                               name: "Name",
+                                               currency: "USD",
+                                               amount: "9.99",
+                                               settlement_currency: "EUR",
+                                               settlement_amount: "132.43",
+                                               date: Date.today
     ))
   end
 

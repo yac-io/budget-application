@@ -3,14 +3,8 @@ require 'rails_helper'
 RSpec.describe "accounts/index", type: :view do
   before(:each) do
     assign(:accounts, [
-      Account.create!(
-        :name => "Name",
-        :currency => "USD"
-      ),
-      Account.create!(
-        :name => "Name",
-        :currency => "USD"
-      )
+        create(:account, name: 'Name', currency: 'usd'),
+        create(:account, name: 'Name', currency: 'usd')
     ])
   end
 

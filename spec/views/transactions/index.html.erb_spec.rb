@@ -6,29 +6,28 @@ RSpec.describe 'transactions/index', type: :view do
     payment_mean = create(:payment_mean, name: 'paymentmean name')
     category = create(:category, name: 'category name')
     assign(:transactions, [
-        Transaction.create!(
-            account: account,
-            payment_mean: payment_mean,
-            category: category,
-            currency: 'EUR',
-            amount: '9.99',
-            name: 'Name',
-            settlement_currency: 'USD',
-            settlement_amount: '12.32',
-            date: Date.today
+        create(:transaction,
+               account: account,
+               payment_mean: payment_mean,
+               category: category,
+               currency: 'EUR',
+               amount: '9.99',
+               name: 'Name',
+               settlement_currency: 'USD',
+               settlement_amount: '12.32',
+               date: Date.today
         ),
-        Transaction.create!(
-            account: account,
-            payment_mean: payment_mean,
-            category: category,
-            currency: 'eur',
-            amount: '9.99',
-            name: 'Name',
-            settlement_currency: 'usd',
-            settlement_amount: '12.32',
-            date: Date.today
-        )
-    ])
+        create(:transaction,
+               account: account,
+               payment_mean: payment_mean,
+               category: category,
+               currency: 'EUR',
+               amount: '9.99',
+               name: 'Name',
+               settlement_currency: 'USD',
+               settlement_amount: '12.32',
+               date: Date.today
+        )])
   end
 
   it 'renders a list of transactions' do

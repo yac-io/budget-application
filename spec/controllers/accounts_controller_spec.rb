@@ -29,7 +29,9 @@ RSpec.describe AccountsController, type: :controller do
   # Account. As you add validations to Account, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {name: 'account_name', currency: 'USD'}
+    attributes = create(:account).attributes
+    attributes[:id] = nil
+    attributes
   }
 
   let(:invalid_attributes) {
@@ -42,11 +44,13 @@ RSpec.describe AccountsController, type: :controller do
   let(:valid_session) {{}}
 
   before :each do
-    sign_in create(:user)
+    @user = create(:user)
+    sign_in @user
   end
 
   describe "GET #index" do
     it "returns a success response" do
+      valid_attributes[:user_id] = @user.id
       account = Account.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_success
@@ -55,6 +59,7 @@ RSpec.describe AccountsController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
+      valid_attributes[:user_id] = @user.id
       account = Account.create! valid_attributes
       get :show, params: {id: account.to_param}, session: valid_session
       expect(response).to be_success
@@ -70,6 +75,7 @@ RSpec.describe AccountsController, type: :controller do
 
   describe "GET #edit" do
     it "returns a success response" do
+      valid_attributes[:user_id] = @user.id
       account = Account.create! valid_attributes
       get :edit, params: {id: account.to_param}, session: valid_session
       expect(response).to be_success
@@ -79,8 +85,10 @@ RSpec.describe AccountsController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Account" do
+        attributes = valid_attributes
+        attributes[:user] = nil
         expect {
-          post :create, params: {account: valid_attributes}, session: valid_session
+          post :create, params: {account: attributes}, session: valid_session
         }.to change(Account, :count).by(1)
       end
 
@@ -105,6 +113,7 @@ RSpec.describe AccountsController, type: :controller do
       }
 
       it "updates the requested account" do
+        valid_attributes[:user_id] = @user.id
         account = Account.create! valid_attributes
         put :update, params: {id: account.to_param, account: new_attributes}, session: valid_session
         account.reload
@@ -113,6 +122,7 @@ RSpec.describe AccountsController, type: :controller do
       end
 
       it "redirects to the account" do
+        valid_attributes[:user_id] = @user.id
         account = Account.create! valid_attributes
         put :update, params: {id: account.to_param, account: valid_attributes}, session: valid_session
         expect(response).to redirect_to(account)
@@ -121,6 +131,7 @@ RSpec.describe AccountsController, type: :controller do
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
+        valid_attributes[:user_id] = @user.id
         account = Account.create! valid_attributes
         put :update, params: {id: account.to_param, account: invalid_attributes}, session: valid_session
         expect(response).to be_success
@@ -130,6 +141,7 @@ RSpec.describe AccountsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested account" do
+      valid_attributes[:user_id] = @user.id
       account = Account.create! valid_attributes
       expect {
         delete :destroy, params: {id: account.to_param}, session: valid_session
@@ -137,6 +149,7 @@ RSpec.describe AccountsController, type: :controller do
     end
 
     it "redirects to the accounts list" do
+      valid_attributes[:user_id] = @user.id
       account = Account.create! valid_attributes
       delete :destroy, params: {id: account.to_param}, session: valid_session
       expect(response).to redirect_to(accounts_url)

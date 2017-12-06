@@ -8,6 +8,7 @@ FactoryBot.define do
     settlement_currency "EUR"
     settlement_amount "10.92"
     date "2017-12-02"
+    association :user, strategy: :create
   end
 
   factory :transaction_invalid, class: Transaction do

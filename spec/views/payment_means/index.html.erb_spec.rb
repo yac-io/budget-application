@@ -4,16 +4,8 @@ RSpec.describe 'payment_means/index', type: :view do
   before(:each) do
     account = create(:account, name: 'account name')
     assign(:payment_means, [
-      PaymentMean.create!(
-        :name => 'Name',
-        :currency => 'USD',
-        :account => account
-      ),
-      PaymentMean.create!(
-        :name => 'Name',
-        :currency => 'USD',
-        :account => account
-      )
+        create(:payment_mean, name: 'Name', currency: 'USD', account: account),
+        create(:payment_mean, name: 'Name', currency: 'USD', account: account)
     ])
   end
 

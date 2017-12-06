@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :user do
-    email "foo@bar.com"
+    sequence :email do |n|
+      "foo#{n}@bar.com"
+    end
     password "password"
     password_confirmation "password"
   end

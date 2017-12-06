@@ -4,7 +4,7 @@ class PaymentMeansController < ApplicationController
   # GET /payment_means
   # GET /payment_means.json
   def index
-    @payment_means = PaymentMean.all
+    @payment_means = current_user.payment_means.all
   end
 
   # GET /payment_means/1
@@ -15,6 +15,7 @@ class PaymentMeansController < ApplicationController
   # GET /payment_means/new
   def new
     @payment_mean = PaymentMean.new
+    @payment_mean.user = current_user
   end
 
   # GET /payment_means/1/edit
@@ -25,6 +26,7 @@ class PaymentMeansController < ApplicationController
   # POST /payment_means.json
   def create
     @payment_mean = PaymentMean.new(payment_mean_params)
+    @payment_mean.user = current_user
 
     respond_to do |format|
       if @payment_mean.save
@@ -64,7 +66,7 @@ class PaymentMeansController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_payment_mean
-      @payment_mean = PaymentMean.find(params[:id])
+      @payment_mean = current_user.payment_means.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

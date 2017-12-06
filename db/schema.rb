@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171205053056) do
+ActiveRecord::Schema.define(version: 20171206043822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,12 +20,16 @@ ActiveRecord::Schema.define(version: 20171205053056) do
     t.string "currency", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
   create_table "payment_means", force: :cascade do |t|
@@ -34,7 +38,9 @@ ActiveRecord::Schema.define(version: 20171205053056) do
     t.bigint "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["account_id"], name: "index_payment_means_on_account_id"
+    t.index ["user_id"], name: "index_payment_means_on_user_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -49,9 +55,11 @@ ActiveRecord::Schema.define(version: 20171205053056) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["payment_mean_id"], name: "index_transactions_on_payment_mean_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,8 +79,12 @@ ActiveRecord::Schema.define(version: 20171205053056) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "accounts", "users"
+  add_foreign_key "categories", "users"
   add_foreign_key "payment_means", "accounts"
+  add_foreign_key "payment_means", "users"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "payment_means"
+  add_foreign_key "transactions", "users"
 end
