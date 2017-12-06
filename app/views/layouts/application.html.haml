@@ -30,7 +30,7 @@
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#settings-dropdown{'data-toggle' => 'dropdown', 'aria-haspopup'=> "true", 'aria-expanded'=>"false", :href => '#'} My account
               .dropdown-menu{'aria-labelledby'=>"settings-dropdown"}
-                = link_to 'Sign out', destroy_user_session_path, method: 'delete'
+                = link_to 'Sign out', destroy_user_session_path, method: 'delete', class: 'dropdown-item'
 
     %main.container-fluid{:role => 'main'}
 
