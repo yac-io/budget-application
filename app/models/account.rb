@@ -1,5 +1,5 @@
 class Account < ApplicationRecord
-  has_many :transactions
+  has_many :transactions, -> {order('date desc')}
   has_many :payment_means
   belongs_to :user
 
@@ -11,6 +11,11 @@ class Account < ApplicationRecord
   validates_length_of :currency, is: 3
 
   before_save :currency_to_uppercase
+
+
+  def current_value
+    transactions.where('date <= ?', Date.today).sum(:settlement_amount)
+  end
 
   private
   def currency_to_uppercase

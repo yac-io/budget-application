@@ -2,44 +2,50 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{'http-equiv' => "X-UA-Compatible", :content => "IE=edge"}/
     %title BudgetApplication
+    %link{:rel => 'stylesheet', :href => 'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en'}
+    %link{:rel => 'stylesheet', :href => 'https://fonts.googleapis.com/icon?family=Material+Icons'}
+
     = csrf_meta_tags
     = stylesheet_pack_tag 'application'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    %nav.navbar.navbar-expand-md.navbar-dark.bg-dark.mb-4
-      =link_to 'Yac.io', root_path, class: 'navbar-brand'
+    .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+      %header.mdl-layout__header
+        .mdl-layout__header-row
+          %span.mdl-layout-title Yac.io
+          .mdl-layout-spacer
+          -if user_signed_in?
+            %nav.mdl-navigation.mdl-layout--large-screen-only
+              =link_to 'Home', root_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
+              =link_to 'Transactions', transactions_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
+              =link_to 'Accounts', accounts_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
+              =link_to 'Payment Means', payment_means_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
+              =link_to 'Categories', categories_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
+            %button.android-more-button.mdl-button.mdl-js-button.mdl-button--icon.mdl-js-ripple-effect#more-button
+              %i.material-icons more_vert
+            %ul.mdl-menu.mdl-js-menu.mdl-menu--bottom-right.mdl-js-ripple-effect{:for => 'more-button'}
+              %li.mdl-menu__item
+                = link_to 'Sign out', destroy_user_session_path, method: 'delete', class: 'mdl-navigation__link mdl-typography--text-uppercase'
       -if user_signed_in?
-        %button.navbar-toggler{'data-toggle' => 'collapse', 'data-target' => '#navbarMenu', 'aria-controls' => 'navbarMenu',
-          'aria-expanded'  => 'false', 'aria-label' => 'Toggle navigation'}
-          %span.navbar-toggler-icon
-        .collapse.navbar-collapse#navbarMenu
-          %ul.navbar-nav.mr-auto
-            %li.nav-item{:class => ('active' if current_controller?('home'))}
-              =link_to 'Home', root_path, class: 'nav-link'
-            %li.nav-item{:class => ('active' if current_controller?('transactions'))}
-              =link_to 'Transactions', transactions_path, class: 'nav-link'
-            %li.nav-item{:class => ('active' if current_controller?('accounts'))}
-              =link_to 'Accounts', accounts_path, class: 'nav-link'
-            %li.nav-item{:class => ('active' if current_controller?('payment_means'))}
-              =link_to 'Payment Means', payment_means_path, class: 'nav-link'
-            %li.nav-item{:class => ('active' if current_controller?('categories'))}
-              =link_to 'Categories', categories_path, class: 'nav-link'
-          %ul.navbar-nav
-            %li.nav-item.dropdown
-              %a.nav-link.dropdown-toggle#settings-dropdown{'data-toggle' => 'dropdown', 'aria-haspopup'=> "true", 'aria-expanded'=>"false", :href => '#'} My account
-              .dropdown-menu{'aria-labelledby'=>"settings-dropdown"}
-                = link_to 'Sign out', destroy_user_session_path, method: 'delete', class: 'dropdown-item'
-
-    %main.container-fluid{:role => 'main'}
-
-      -if notice
-        .alert.alert-info
-          =notice
-      -if alert
-        .alert.alert-danger
-          =alert
-      = yield
+        .mdl-layout__drawer
+          %span.mdl-layout-title Yac.io
+          %nav.mdl-navigation
+            =link_to 'Home', root_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
+            =link_to 'Transactions', transactions_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
+            =link_to 'Accounts', accounts_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
+            =link_to 'Payment Means', payment_means_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
+            =link_to 'Categories', categories_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
+      %main.mdl-layout__content
+        .page-content
+          -if notice
+            .alert.alert-info
+              =notice
+          -if alert
+            .alert.alert-danger
+              =alert
+          = yield
 
 = javascript_pack_tag 'app'

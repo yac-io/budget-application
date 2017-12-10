@@ -1,10 +1,23 @@
-%p#notice= notice
-%p
-  %strong Name:
-  = @account.name
-%p
-  %strong Currency:
-  = @account.currency
+%h2
+  =@account.name
+  = "#{number_to_currency @account.current_value, unit: @account.currency}"
+
+
+%table.mdl-data-table.mdl-js-data-table.mdl-data-table--selectable.mdl-shadow--2dp.table-full-size
+  %thead
+    %tr
+      %th.mdl-data-table__cell--non-numeric.mdl-data-table__header--sorted-descending Date
+      %th.mdl-data-table__cell--non-numeric Name
+      %th.mdl-data-table__cell--non-numeric Category
+      %th Amount
+  %tbody
+    -@account.transactions.each do |transaction|
+      %tr{class: [("debit" if transaction.settlement_amount < 0 ), ("credit" if transaction.settlement_amount >= 0 )]}
+        %td= transaction.date
+        %td= transaction.name
+        %td= transaction.category.name unless transaction.category.nil?
+        %td.number= "#{number_to_currency transaction.settlement_amount, unit: transaction.settlement_currency}"
+
 = link_to 'Edit', edit_account_path(@account)
 |
 = link_to 'Back', accounts_path

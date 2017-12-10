@@ -1,3 +1,32 @@
 body {
   background-color: #fafafa;
 }
+
+.page-content {
+  padding: 20px;
+
+}
+
+.table-full-size {
+  width: 100%;
+}
+
+.table-full-size th:first-of-type {
+  width: 5%;
+}
+
+.table-full-size td {
+  text-align: left;
+}
+
+td.number {
+  text-align: right;
+}
+
+.credit {
+  color: rgb(76, 175, 80);
+}
+
+.debit {
+  color: rgb(233, 30, 99);
+}

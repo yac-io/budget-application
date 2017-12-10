@@ -1,2 +1,18 @@
-%h1 Home#index
-%p Find me in app/views/home/index.html.erb
+-if @accounts.count == 0
+  .col
+    %h1.text-center Welcome on Yac.io
+    %p.text-center
+      It seems that you don't have any account setup.
+      Please
+      = link_to 'create a new account', new_account_path
+      to get started
+
+-@accounts.each do |account|
+  .mdl-card
+    .mdl-card__title.mdl-card--expand
+      %h4
+        = account.name
+        %br
+        = "#{number_to_currency account.current_value, unit: account.currency}"
+    .mdl-card__actions.mdl-card--border
+      =link_to 'View details', account_path(account.id), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'

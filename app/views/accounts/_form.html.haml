@@ -7,11 +7,11 @@
       %ul
         - account.errors.full_messages.each do |message|
           %li= message
-  .field
-    = form.label :name
-    = form.text_field :name, id: :account_name
-  .field
-    = form.label :currency
-    = form.text_field :currency, id: :account_currency
+  .form-group
+    = form.label :name, class: 'col-form-label'
+    = form.text_field :name, id: :account_name, class: 'form-control'
+  .form-group
+    = form.label :currency, class: 'col-form-label'
+    = form.text_field :currency, id: :account_currency, class: 'form-control'
   .actions
-    = form.submit
+    = form.submit class: 'btn btn-primary'

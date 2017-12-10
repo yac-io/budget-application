@@ -1,5 +1,7 @@
-%h1 Editing Account
-= render 'form', account: @account
-= link_to 'Show', @account
-|
-= link_to 'Back', accounts_path
+.row
+  .col.col-md-8.offset-md-2
+    %h1 Editing Account
+    = render 'form', account: @account
+    = link_to 'Show', @account
+    |
+    = link_to 'Back', accounts_path
