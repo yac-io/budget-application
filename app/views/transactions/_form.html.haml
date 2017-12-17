@@ -9,10 +9,10 @@
           %li= message
   .field
     = form.label :account_id
-    = form.text_field :account_id, id: :transaction_account_id
+    = form.collection_select(:account_id, current_user.accounts.all, :id, :name)
   .field
     = form.label :payment_mean_id
-    = form.text_field :payment_mean_id, id: :transaction_payment_mean_id
+    = form.collection_select(:payment_mean_id, current_user.payment_means.all, :id, :name)
   .field
     = form.label :category_id
     = form.text_field :category_id, id: :transaction_category_id

@@ -90,7 +90,7 @@ RSpec.describe TransactionsController, type: :controller do
 
       it 'redirects to the created transaction' do
         post :create, params: {transaction: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Transaction.last)
+        expect(response).to redirect_to(Transaction.last.account)
       end
     end
 
