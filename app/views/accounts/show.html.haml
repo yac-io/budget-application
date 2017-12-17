@@ -10,6 +10,7 @@
       %th.mdl-data-table__cell--non-numeric Name
       %th.mdl-data-table__cell--non-numeric Category
       %th Amount
+      %th Actions
   %tbody
     -@account.transactions.each do |transaction|
       %tr{class: [("debit" if transaction.settlement_amount < 0 ), ("credit" if transaction.settlement_amount >= 0 )]}
@@ -17,6 +18,11 @@
         %td= transaction.name
         %td= transaction.category.name unless transaction.category.nil?
         %td.number= "#{number_to_currency transaction.settlement_amount, unit: transaction.settlement_currency}"
+        %td
+          = link_to edit_transaction_path(transaction) do
+            %i.material-icons create
+          = link_to transaction, method: :delete, data: {confirm: 'Are you sure?'} do
+            %i.material-icons delete forever
 
 = link_to 'Edit', edit_account_path(@account)
 |
