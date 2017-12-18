@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'transactions/new', type: :view do
   before(:each) do
-    view.stub(:current_user) { User.new }
+    allow(view).to receive(:current_user).and_return(create(:user))
     @account = create(:account)
     assign(:transaction, Transaction.new(
                            account: @account,
