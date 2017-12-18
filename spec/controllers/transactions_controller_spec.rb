@@ -46,27 +46,19 @@ RSpec.describe TransactionsController, type: :controller do
     sign_in @user
   end
 
-  describe 'GET #index' do
-    it 'returns a success response' do
-      valid_attributes[:user_id] = @user.id
-      transaction = Transaction.create! valid_attributes
-      get :index, params: {}, session: valid_session
-      expect(response).to be_success
-    end
-  end
-
   describe 'GET #show' do
     it 'returns a success response' do
       valid_attributes[:user_id] = @user.id
       transaction = Transaction.create! valid_attributes
-      get :show, params: {id: transaction.to_param}, session: valid_session
+      get :show, params: {id: transaction.to_param, account_id: transaction.account.id}, session: valid_session
       expect(response).to be_success
     end
   end
 
   describe 'GET #new' do
     it 'returns a success response' do
-      get :new, params: {}, session: valid_session
+      account = create(:account, user: @user)
+      get :new, params: {account_id: account.id}, session: valid_session
       expect(response).to be_success
     end
   end
@@ -75,7 +67,7 @@ RSpec.describe TransactionsController, type: :controller do
     it 'returns a success response' do
       valid_attributes[:user_id] = @user.id
       transaction = Transaction.create! valid_attributes
-      get :edit, params: {id: transaction.to_param}, session: valid_session
+      get :edit, params: {id: transaction.to_param, account_id: transaction.account.id}, session: valid_session
       expect(response).to be_success
     end
   end
@@ -84,19 +76,22 @@ RSpec.describe TransactionsController, type: :controller do
     context 'with valid params' do
       it 'creates a new Transaction' do
         expect {
-          post :create, params: {transaction: valid_attributes}, session: valid_session
+          account = create(:account, user: @user)
+          post :create, params: {transaction: valid_attributes, account_id: account.id}, session: valid_session
         }.to change(Transaction, :count).by(1)
       end
 
       it 'redirects to the created transaction' do
-        post :create, params: {transaction: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Transaction.last.account)
+        account = create(:account, user: @user)
+        post :create, params: {transaction: valid_attributes, account_id: account.id}, session: valid_session
+        expect(response).to redirect_to(account_path(Transaction.last.account))
       end
     end
 
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {transaction: invalid_attributes}, session: valid_session
+        account = create(:account, user: @user)
+        post :create, params: {transaction: invalid_attributes, account_id: account.id}, session: valid_session
         expect(response).to be_success
       end
     end
@@ -111,7 +106,7 @@ RSpec.describe TransactionsController, type: :controller do
       it 'updates the requested transaction' do
         valid_attributes[:user_id] = @user.id
         transaction = Transaction.create! valid_attributes
-        put :update, params: {id: transaction.to_param, transaction: new_attributes}, session: valid_session
+        put :update, params: {id: transaction.to_param, account_id: transaction.account.id, transaction: new_attributes}, session: valid_session
         transaction.reload
         expect(transaction.name).to eq('new_name')
       end
@@ -119,7 +114,7 @@ RSpec.describe TransactionsController, type: :controller do
       it 'redirects to the account summary' do
         valid_attributes[:user_id] = @user.id
         transaction = Transaction.create! valid_attributes
-        put :update, params: {id: transaction.to_param, transaction: valid_attributes}, session: valid_session
+        put :update, params: {id: transaction.to_param, account_id: transaction.account.id, transaction: valid_attributes}, session: valid_session
         expect(response).to redirect_to(transaction.account)
       end
     end
@@ -128,7 +123,7 @@ RSpec.describe TransactionsController, type: :controller do
       it "returns a success response (i.e. to display the 'edit' template)" do
         valid_attributes[:user_id] = @user.id
         transaction = Transaction.create! valid_attributes
-        put :update, params: {id: transaction.to_param, transaction: invalid_attributes}, session: valid_session
+        put :update, params: {id: transaction.to_param, account_id: transaction.account.id, transaction: invalid_attributes}, session: valid_session
         expect(response).to be_success
       end
     end
@@ -139,14 +134,14 @@ RSpec.describe TransactionsController, type: :controller do
       valid_attributes[:user_id] = @user.id
       transaction = Transaction.create! valid_attributes
       expect {
-        delete :destroy, params: {id: transaction.to_param}, session: valid_session
+        delete :destroy, params: {id: transaction.to_param, account_id: transaction.account.id}, session: valid_session
       }.to change(Transaction, :count).by(-1)
     end
 
     it 'redirects to the account summarry' do
       valid_attributes[:user_id] = @user.id
       transaction = Transaction.create! valid_attributes
-      delete :destroy, params: {id: transaction.to_param}, session: valid_session
+      delete :destroy, params: {id: transaction.to_param, account_id: transaction.account.id}, session: valid_session
       expect(response).to redirect_to(transaction.account)
     end
   end

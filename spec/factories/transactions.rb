@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :transaction do
-    account
     payment_mean
     currency "USD"
     name "Test "
@@ -9,6 +8,7 @@ FactoryBot.define do
     settlement_amount "10.92"
     date "2017-12-02"
     association :user, strategy: :create
+    association :account, strategy: :create
   end
 
   factory :transaction_invalid, class: Transaction do

@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'transactions/edit', type: :view do
   before(:each) do
-    view.stub(:current_user) {create(:user)}
+    allow(view).to receive(:current_user).and_return(create(:user))
     @transaction = assign(:transaction, create(:transaction))
   end
 
   it 'renders the edit transaction form' do
     render
 
-    assert_select 'form[action=?][method=?]', transaction_path(@transaction), 'post' do
+    assert_select 'form[action=?][method=?]', account_transaction_path(@transaction.account, @transaction), 'post' do
 
       assert_select 'select[name=?]', 'transaction[account_id]'
 

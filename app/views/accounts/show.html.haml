@@ -2,6 +2,9 @@
   =@account.name
   = "#{number_to_currency @account.current_value, unit: @account.currency}"
 
+=link_to 'Add Transaction', new_account_transaction_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored'
+
+%br
 
 %table.mdl-data-table.mdl-js-data-table.mdl-data-table--selectable.mdl-shadow--2dp.table-full-size
   %thead
@@ -19,9 +22,9 @@
         %td= transaction.category.name unless transaction.category.nil?
         %td.number= "#{number_to_currency transaction.settlement_amount, unit: transaction.settlement_currency}"
         %td
-          = link_to edit_transaction_path(transaction) do
+          = link_to edit_account_transaction_path(@account, transaction) do
             %i.material-icons create
-          = link_to transaction, method: :delete, data: {confirm: 'Are you sure?'} do
+          = link_to account_transaction_path(@account, transaction), method: :delete, data: {confirm: 'Are you sure?'} do
             %i.material-icons delete forever
 
 = link_to 'Edit', edit_account_path(@account)

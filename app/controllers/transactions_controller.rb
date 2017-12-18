@@ -1,12 +1,6 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
-  # GET /transactions
-  # GET /transactions.json
-  def index
-    @transactions = current_user.transactions.all
-  end
-
   # GET /transactions/1
   # GET /transactions/1.json
   def show
@@ -16,6 +10,7 @@ class TransactionsController < ApplicationController
   def new
     @transaction = Transaction.new
     @transaction.user = current_user
+    @transaction.account = current_user.accounts.find(params[:account_id])
   end
 
   # GET /transactions/1/edit
@@ -44,7 +39,7 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html {redirect_to @transaction.account, notice: 'Transaction was successfully updated.'}
+        format.html {redirect_to account_path(@transaction.account), notice: 'Transaction was successfully updated.'}
         format.json {render :show, status: :ok, location: @transaction}
       else
         format.html {render :edit}
@@ -67,6 +62,9 @@ class TransactionsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_transaction
     @transaction = current_user.transactions.find(params[:id])
+    if @transaction.account.id != params[:account_id].to_i
+      raise ActionController::RoutingError, 'Not Found'
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
