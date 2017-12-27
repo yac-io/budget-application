@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   resources :categories
   resources :payment_means
   resources :accounts do
-    resources :transactions, except: [:index]
+    resources :transactions, except: [:index] do
+      member do
+        put 'state'
+      end
+    end
   end
 
   root to: 'home#index'

@@ -1,3 +1,5 @@
+= javascript_pack_tag 'state-change-checkbox'
+
 %h2
   =@account.name
   = "#{number_to_currency @account.current_value, unit: @account.currency}"
@@ -6,9 +8,10 @@
 
 %br
 
-%table.mdl-data-table.mdl-js-data-table.mdl-data-table--selectable.mdl-shadow--2dp.table-full-size
+%table#app.mdl-data-table.mdl-shadow--2dp.table-full-size
   %thead
     %tr
+      %th &nbsp;
       %th.mdl-data-table__cell--non-numeric.mdl-data-table__header--sorted-descending Date
       %th.mdl-data-table__cell--non-numeric Name
       %th.mdl-data-table__cell--non-numeric Category
@@ -17,6 +20,10 @@
   %tbody
     -@account.transactions.each do |transaction|
       %tr{class: [("debit" if transaction.settlement_amount < 0 ), ("credit" if transaction.settlement_amount >= 0 )]}
+        %td
+          %state-change-checkbox{'update-uri': state_account_transaction_path(@account, transaction), 'start-checked': transaction.checked? ? 'true' : 'false'} }
+          /%label.mdl-checkbox.mdl-js-checkbox.mdl-js-ripple-effect.mdl-data-table__select{:for =>"checked-#{transaction.id}",'data-update-uri' => transaction.checked? ? uncheck_account_transaction(@account, transaction) : check_account_transaction_path(@account, transaction) }
+          /  = check_box_tag "checked-#{transaction.id}", '1', transaction.checked?, class: 'mdl-checkbox__input'
         %td= transaction.date
         %td= transaction.name
         %td= transaction.category.name unless transaction.category.nil?
@@ -30,3 +37,5 @@
 = link_to 'Edit', edit_account_path(@account)
 |
 = link_to 'Back', accounts_path
+
+

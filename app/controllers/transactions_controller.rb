@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: [:show, :edit, :update, :destroy]
+  before_action :set_transaction, only: [:show, :edit, :update, :destroy, :state]
 
   # GET /transactions/1
   # GET /transactions/1.json
@@ -16,6 +16,18 @@ class TransactionsController < ApplicationController
   # GET /transactions/1/edit
   def edit
   end
+
+  def state
+    @transaction.checked = !@transaction.checked?
+    respond_to do |format|
+      if @transaction.save
+        format.json {render :show, status: :ok, location: account_transaction_path(@transaction.account, @transaction)}
+      else
+        format.json {render json: @transaction.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
 
   # POST /transactions
   # POST /transactions.json

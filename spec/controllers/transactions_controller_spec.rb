@@ -97,6 +97,32 @@ RSpec.describe TransactionsController, type: :controller do
     end
   end
 
+  describe 'PUT #state' do
+    before(:each) do
+      request.headers['accept'] = 'application/json'
+    end
+
+    it 'marks as unchecked if checked' do
+      valid_attributes[:user_id] = @user.id
+      valid_attributes[:checked] = true
+      transaction = Transaction.create! valid_attributes
+      put :state, params: {id: transaction.to_param, account_id: transaction.account.id}, session: valid_session
+      transaction.reload
+      expect(transaction.checked?).to be_falsey
+    end
+
+    it 'marks as checked if unchecked' do
+      valid_attributes[:user_id] = @user.id
+      valid_attributes[:checked] = false
+      transaction = Transaction.create! valid_attributes
+      put :state, params: {id: transaction.to_param, account_id: transaction.account.id}, session: valid_session
+      transaction.reload
+      expect(transaction.checked?).to be_truthy
+    end
+
+
+  end
+
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
