@@ -6,7 +6,7 @@ sudo: false
 rvm:
   - 2.3
 
-bundler_args: --without development
+bundler_args: "--without development"
 
 services:
   - postgresql
@@ -15,5 +15,13 @@ before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp config/database.yml.travis config/database.yml
   - yarn install
-  - ./bin/webpack
+  - "./bin/webpack"
 
+deploy:
+  provider: heroku
+  app: yac-budget
+  on: master
+  api_key:
+    secure: RjROGCni723+mEu7Dra4QcSfkTp/srjuC6M4P1dIqibRB4+DxqSj9YYYHuZNruTOe+IowUrqbZ30PmlJ8KHl6gw4soMKV6meDFhrUKhUKjm3Hphf2Ye9wdslFVb1BHSaHWRUAMSxlPHX3/ji8kUhgRqnX3VdELoOXUhhyV3HzfbZf90XsCdI/0nORBK0l3X3NBXe57zfVwjKzwRMpCT/7Q6XmZAH5TL5af9gaa+UWHv+T261rJ4EiFCxktq1uQ1BU96ncQc/OMYdfCfzDTmRnUjWXzCAscACByiOs1P5miLp9wEANIDAXST0faxE4slo3KtJBBc5KwmWq1/N6FRQO/yGT0tQgu3JJdKSXbcUQeB8HBeXqxRHFZ9uyqduvTPRgNJLo1s3npIRw6rNVvbc/WrIPKR0OqTTDrT5J84WomyAmyqzO379ULDSofXh9LFlXMtPC6E6bCM/46m0dsDDwuTc4UQjZDXbxlLIZVnFAHK4YiKcVZIRJgBLH8UILLOUF5yCJuRDJDk+2Qrmj1QVxzE/Eu6uqbHyOVaP5tCiSbkjJt9Pz0uJVjqRSSl5sx/QOf9trCu6hABWCE9cJM//BLIH7Tg+7/bVIj8owuhcdspCb8IzrstxDbfnt1qvsCxkWXTM2dtfPzbXfIDEt9V0KNFRzP84wzb1xH+4IXFF9Bc=
+  run: "rake db:migrate"
+  skip_cleanup: true
