@@ -34,6 +34,16 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
     @transaction.user = current_user
+    @transaction.account = current_user.accounts.find(params[:account_id])
+
+    if @transaction.currency.blank?
+      @transaction.currency = @transaction.settlement_currency
+    end
+
+    if @transaction.amount.blank?
+      @transaction.amount = @transaction.settlement_amount
+    end
+
 
     respond_to do |format|
       if @transaction.save

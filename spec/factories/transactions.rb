@@ -16,7 +16,7 @@ FactoryBot.define do
     payment_mean
     currency ""
     amount nil
-    name "Test "
+    name ""
     settlement_currency "EUR"
     settlement_amount "10.92"
     date "2017-12-02"

@@ -8,29 +8,26 @@
         - transaction.errors.full_messages.each do |message|
           %li= message
   .field
-    = form.label :account_id
-    = form.collection_select(:account_id, current_user.accounts.all, :id, :name)
-  .field
     = form.label :payment_mean_id
-    = form.collection_select(:payment_mean_id, current_user.payment_means.all, :id, :name)
+    = form.collection_select(:payment_mean_id, transaction.account.payment_means.all, :id, :name)
   .field
     = form.label :category_id
-    = form.text_field :category_id, id: :transaction_category_id
-  .field
-    = form.label :currency
-    = form.text_field :currency, id: :transaction_currency
+    = form.collection_select(:category_id, current_user.categories.all.order('name ASC'), :id, :name, {include_blank: 'Select a category'})
   .field
     = form.label :name
     = form.text_field :name, id: :transaction_name
-  .field
-    = form.label :amount
-    = form.text_field :amount, id: :transaction_amount
   .field
     = form.label :settlement_currency
     = form.text_field :settlement_currency, id: :transaction_settlement_currency
   .field
     = form.label :settlement_amount
     = form.text_field :settlement_amount, id: :transaction_settlement_amount
+  .field
+    = form.label :currency
+    = form.text_field :currency, id: :transaction_currency
+  .field
+    = form.label :amount
+    = form.text_field :amount, id: :transaction_amount
   .field
     = form.label :date
     = form.date_select :date, id: :transaction_date

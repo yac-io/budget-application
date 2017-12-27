@@ -20,11 +20,9 @@ RSpec.describe 'transactions/new', type: :view do
     render
 
     assert_select 'form[action=?][method=?]', account_transactions_path(@account), 'post' do
-      assert_select 'select[name=?]', 'transaction[account_id]'
-
       assert_select 'select[name=?]', 'transaction[payment_mean_id]'
 
-      assert_select 'input[name=?]', 'transaction[category_id]'
+      assert_select 'select[name=?]', 'transaction[category_id]'
 
       assert_select 'input[name=?]', 'transaction[currency]'
 
