@@ -13,6 +13,6 @@
       %h4
         = account.name
         %br
-        = "#{number_to_currency account.current_value, unit: account.currency}"
+        = "#{format_currency account.current_value, account.currency}"
     .mdl-card__actions.mdl-card--border
       =link_to 'View details', account_path(account.id), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'
