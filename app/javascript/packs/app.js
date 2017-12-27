@@ -10,6 +10,6 @@
 import "jquery"
 import "material-design-lite";
 
-document.addEventListener('turbolinks:load', function () {
+/*document.addEventListener('turbolinks:load', function () {
     componentHandler.upgradeDom();
-});
+});*/
