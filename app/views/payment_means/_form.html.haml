@@ -15,6 +15,6 @@
     = form.text_field :currency, id: :payment_mean_currency
   .field
     = form.label :account_id
-    = form.text_field :account_id, id: :payment_mean_account_id
+    = form.collection_select(:account_id, current_user.accounts.all, :id, :name)
   .actions
     = form.submit
