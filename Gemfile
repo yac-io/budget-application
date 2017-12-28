@@ -62,3 +62,7 @@ gem 'webpacker', '~> 3.0'
 gem 'haml'
 gem "haml-rails", "~> 1.0"
 gem 'devise'
+
+group :production do
+  gem 'newrelic_rpm'
+end
