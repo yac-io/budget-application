@@ -1,5 +1,5 @@
 class Account < ApplicationRecord
-  has_many :transactions, -> {order('date desc')}
+  has_many :transactions, -> {order('date desc, id asc')}
   has_many :payment_means
   belongs_to :user
 

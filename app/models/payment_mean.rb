@@ -1,7 +1,7 @@
 class PaymentMean < ApplicationRecord
   belongs_to :account
   belongs_to :user
-  has_many :transactions
+  has_many :transactions, -> {order('date desc, id asc')}
 
   validates_presence_of :name
   validates_presence_of :currency

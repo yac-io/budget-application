@@ -1,5 +1,3 @@
-= javascript_pack_tag 'state-change-checkbox'
-
 %h2
   =@account.name
   = "#{format_currency @account.current_value, @account.currency}"
@@ -7,32 +5,9 @@
 =link_to 'Add Transaction', new_account_transaction_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored'
 
 %br
+%br
 
-%table#app.mdl-data-table.mdl-shadow--2dp.table-full-size
-  %thead
-    %tr
-      %th &nbsp;
-      %th.mdl-data-table__cell--non-numeric.mdl-data-table__header--sorted-descending Date
-      %th.mdl-data-table__cell--non-numeric Name
-      %th.mdl-data-table__cell--non-numeric Category
-      %th Amount
-      %th Actions
-  %tbody
-    -@account.transactions.each do |transaction|
-      %tr{class: [("debit" if transaction.settlement_amount < 0 ), ("credit" if transaction.settlement_amount >= 0 )]}
-        %td
-          %state-change-checkbox{'update-uri': state_account_transaction_path(@account, transaction), 'start-checked': transaction.checked? ? 'true' : 'false'} }
-          /%label.mdl-checkbox.mdl-js-checkbox.mdl-js-ripple-effect.mdl-data-table__select{:for =>"checked-#{transaction.id}",'data-update-uri' => transaction.checked? ? uncheck_account_transaction(@account, transaction) : check_account_transaction_path(@account, transaction) }
-          /  = check_box_tag "checked-#{transaction.id}", '1', transaction.checked?, class: 'mdl-checkbox__input'
-        %td= transaction.date
-        %td= transaction.name
-        %td= transaction.category.name unless transaction.category.nil?
-        %td.number= "#{format_currency transaction.settlement_amount, transaction.settlement_currency}"
-        %td
-          = link_to edit_account_transaction_path(@account, transaction) do
-            %i.material-icons create
-          = link_to account_transaction_path(@account, transaction), method: :delete, data: {confirm: 'Are you sure?'} do
-            %i.material-icons delete forever
+=render 'transactions/transaction-table', transactions: @account.transactions
 
 = link_to 'Edit', edit_account_path(@account)
 |

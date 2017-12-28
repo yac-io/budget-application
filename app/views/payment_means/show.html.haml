@@ -1,13 +1,30 @@
-%p#notice= notice
-%p
-  %strong Name:
+%h2
   = @payment_mean.name
-%p
-  %strong Currency:
-  = @payment_mean.currency
-%p
-  %strong Account:
-  = @payment_mean.account.name
+  = format_currency @transactions.sum('settlement_amount'), @payment_mean.currency
+    
+.filter
+  =form_tag '', :method => :get do
+    .date-filter
+      Transactions from
+      = date_field_tag :from, @from
+      to
+      = date_field_tag :to, Date.today
+    .check-filter
+      %label{:for => 'checked_all'}
+        All
+        = radio_button_tag :checked, 'all', (@checked.nil? || @checked == 'all')
+      %label{:for => 'checked_checked'}
+        Checked
+        = radio_button_tag :checked, 'checked', @checked == 'checked'
+      %label{:for => 'checked_unchecked'}
+        Unchecked
+        = radio_button_tag :checked, 'unchecked', @checked == 'unchecked'
+    .submit
+      =submit_tag 'Filter'
+
+=render 'transactions/transaction-table', transactions: @transactions
+
+%br
 = link_to 'Edit', edit_payment_mean_path(@payment_mean)
 |
 = link_to 'Back', payment_means_path

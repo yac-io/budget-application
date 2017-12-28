@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'home/index'
 
   resources :categories
-  resources :payment_means
+  resources :payment_means, :path => '/payment-means'
   resources :accounts do
     resources :transactions, except: [:index] do
       member do
