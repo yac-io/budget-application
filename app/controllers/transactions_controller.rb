@@ -11,6 +11,7 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new
     @transaction.user = current_user
     @transaction.account = current_user.accounts.find(params[:account_id])
+    @transaction.settlement_currency = @transaction.account.currency
   end
 
   # GET /transactions/1/edit

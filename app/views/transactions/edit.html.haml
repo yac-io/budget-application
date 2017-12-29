@@ -1,4 +1,8 @@
-%h1 Editing Transaction
-= render 'form', transaction: @transaction
+.mdl-grid
+  .mdl-cell.mdl-cell--4-col
+    &nbsp;
+  .mdl-cell.mdl-cell--4-col
+    %h1 Editing Transaction
+    = render 'form', transaction: @transaction
 
-= link_to 'Back', @transaction.account
+    = link_to 'Back', @transaction.account

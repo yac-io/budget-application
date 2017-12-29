@@ -8,28 +8,39 @@
         - transaction.errors.full_messages.each do |message|
           %li= message
   .field
-    = form.label :payment_mean_id
-    = form.collection_select(:payment_mean_id, transaction.account.payment_means.all, :id, :name)
+    .mdl-grid
+      .mdl-cell.mdl-cell--4-col
+        = form.label :date
+      .mdl-cell.mdl-cell--8-col
+        = form.date_select :date, id: :transaction_date, order: [:day, :month, :year]
   .field
-    = form.label :category_id
-    = form.collection_select(:category_id, current_user.categories.all.order('name ASC'), :id, :name, {include_blank: 'Select a category'})
+    .mdl-grid
+      .mdl-cell.mdl-cell--4-col
+        = form.label :payment_mean_id
+      .mdl-cell.mdl-cell--8-col
+        = form.collection_select(:payment_mean_id, transaction.account.payment_means.all, :id, :name)
   .field
-    = form.label :name
-    = form.text_field :name, id: :transaction_name
-  .field
-    = form.label :settlement_currency
-    = form.text_field :settlement_currency, id: :transaction_settlement_currency
-  .field
-    = form.label :settlement_amount
-    = form.text_field :settlement_amount, id: :transaction_settlement_amount
-  .field
-    = form.label :currency
-    = form.text_field :currency, id: :transaction_currency
-  .field
-    = form.label :amount
-    = form.text_field :amount, id: :transaction_amount
-  .field
-    = form.label :date
-    = form.date_select :date, id: :transaction_date
+    .mdl-grid
+      .mdl-cell.mdl-cell--4-col
+        = form.label :category_id
+      .mdl-cell.mdl-cell--8-col
+        = form.collection_select(:category_id, current_user.categories.all.order('name ASC'), :id, :name, {include_blank: 'Select a category'})
+  .mdl-textfield.mdl-js-textfield
+    = form.text_field :name, id: :transaction_name, class: 'mdl-textfield__input'
+    = form.label :name, class: 'mdl-textfield__label'
+  .mdl-textfield.mdl-js-textfield
+    = form.text_field :settlement_amount, id: :transaction_settlement_amount, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?'
+    = form.label :settlement_amount, class: 'mdl-textfield__label'
+    %span.mdl-textfield__error Input is not a number!
+  .mdl-textfield.mdl-js-textfield
+    = form.text_field :settlement_currency, id: :transaction_settlement_currency, class: 'mdl-textfield__input'
+    = form.label :settlement_currency, class: 'mdl-textfield__label'
+  .mdl-textfield.mdl-js-textfield
+    = form.text_field :amount, id: :transaction_amount, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?'
+    = form.label :amount, class: 'mdl-textfield__label'
+    %span.mdl-textfield__error Input is not a number!
+  .mdl-textfield.mdl-js-textfield
+    = form.text_field :currency, id: :transaction_currency, class: 'mdl-textfield__input'
+    = form.label :currency, class: 'mdl-textfield__label'
   .actions
-    = form.submit
+    = form.submit 'Save', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored'
