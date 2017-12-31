@@ -1,0 +1,9 @@
+.mdl-grid
+  .mdl-cell.mdl-cell--2-col
+    &nbsp;
+  .mdl-cell.mdl-cell--8-col
+    %h1 New Recurring Transaction
+
+    = render 'form', recurring_transaction: @recurring_transaction
+
+    = link_to 'Back', account_recurring_transactions_path(@account)

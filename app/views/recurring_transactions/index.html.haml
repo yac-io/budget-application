@@ -1,0 +1,43 @@
+%h1
+  Recurring transactions for account
+  = @account.name
+
+%table.mdl-data-table.mdl-shadow--2dp.table-full-size
+  %thead
+    %tr
+      %th.mdl-data-table__cell--non-numeric Recurring rule
+      %th.mdl-data-table__cell--non-numeric Account
+      %th.mdl-data-table__cell--non-numeric Payment mean
+      %th.mdl-data-table__cell--non-numeric Category
+      %th.mdl-data-table__cell--non-numeric Name
+      %th.mdl-data-table__cell--numeric Settlement amount
+      %th.mdl-data-table__cell--non-numeric Active ?
+      %th.mdl-data-table__cell--non-numeric Last run date
+      %th.mdl-data-table__cell--non-numeric
+      %th.mdl-data-table__cell--non-numeric
+      %th.mdl-data-table__cell--non-numeric
+
+  %tbody
+    - @recurring_transactions.each do |recurring_transaction|
+      %tr
+        %td= recurring_transaction.recurring_rule
+        %td= recurring_transaction.account.name
+        %td= recurring_transaction.payment_mean.name
+        %td= recurring_transaction.category.name unless recurring_transaction.category.nil?
+        %td= recurring_transaction.name
+        %td.number= "#{format_currency recurring_transaction.settlement_amount, recurring_transaction.settlement_currency}"
+        %td= recurring_transaction.active?
+        %td= recurring_transaction.last_run_date
+        %td= link_to 'Show', account_recurring_transaction_path(recurring_transaction.account, recurring_transaction)
+        %td= link_to 'Edit', edit_account_recurring_transaction_path(recurring_transaction.account, recurring_transaction)
+        %td
+          - if recurring_transaction.active?
+            = link_to 'Disable', disable_account_recurring_transaction_path(recurring_transaction.account, recurring_transaction), method: :put, data: { confirm: 'Are you sure?' }
+          - else
+            = link_to 'Enable', enable_account_recurring_transaction_path(recurring_transaction.account, recurring_transaction), method: :put, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'Back', account_path(@account)
+|
+= link_to 'New Recurring transaction', new_account_recurring_transaction_path(@account)

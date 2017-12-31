@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users
   get 'home/index'
 
@@ -8,6 +9,12 @@ Rails.application.routes.draw do
     resources :transactions, except: [:index] do
       member do
         put 'state'
+      end
+    end
+    resources :recurring_transactions, :path => '/recurring-transactions' do
+      member do
+        put 'disable'
+        put 'enable'
       end
     end
   end

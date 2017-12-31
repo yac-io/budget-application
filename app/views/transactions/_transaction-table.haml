@@ -7,8 +7,9 @@
       %th.mdl-data-table__cell--non-numeric.mdl-data-table__header--sorted-descending Date
       %th.mdl-data-table__cell--non-numeric Name
       %th.mdl-data-table__cell--non-numeric Category
-      %th Amount
-      %th Actions
+      %th.mdl-data-table__cell--numeric Amount
+      %th.mdl-data-table__cell--non-numeric
+      %th.mdl-data-table__cell--non-numeric
   %tbody
     -transactions.each do |transaction|
       %tr{class: [("debit" if transaction.settlement_amount < 0 ), ("credit" if transaction.settlement_amount >= 0 )]}
@@ -21,5 +22,6 @@
         %td
           = link_to edit_account_transaction_path(transaction.account, transaction) do
             %i.material-icons create
+        %td
           = link_to account_transaction_path(transaction.account, transaction), method: :delete, data: {confirm: 'Are you sure?'} do
             %i.material-icons delete forever

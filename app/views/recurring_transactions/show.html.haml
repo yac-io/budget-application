@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Recurring rule:
+  = @recurring_transaction.recurring_rule
+%p
+  %b Account:
+  = @recurring_transaction.account.name
+%p
+  %b Payment mean:
+  = @recurring_transaction.payment_mean.name
+%p
+  %b Category:
+  = @recurring_transaction.category.name unless @recurring_transaction.category.nil?
+%p
+  %b Name:
+  = @recurring_transaction.name
+%p
+  %b Amount:
+  = format_currency @recurring_transaction.settlement_amount, @recurring_transaction.settlement_currency
+
+= link_to 'Edit', edit_account_recurring_transaction_path(@recurring_transaction.account, @recurring_transaction)
+\|
+= link_to 'Back', account_recurring_transactions_path(@recurring_transaction.account)

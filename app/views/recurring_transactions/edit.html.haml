@@ -1,0 +1,11 @@
+.mdl-grid
+  .mdl-cell.mdl-cell--2-col
+    &nbsp;
+  .mdl-cell.mdl-cell--8-col
+    %h1 Editing Recurring Transaction
+
+    = render 'form', recurring_transaction: @recurring_transaction
+
+= link_to 'Show', account_recurring_transaction_path(@recurring_transaction.account, @recurring_transaction)
+\|
+= link_to 'Back', account_recurring_transactions_path(@recurring_transaction.account)

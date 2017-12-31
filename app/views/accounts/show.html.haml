@@ -9,6 +9,8 @@
 
 =render 'transactions/transaction-table', transactions: @account.transactions
 
+= link_to 'Recurring transactions', account_recurring_transactions_path(@account)
+|
 = link_to 'Edit', edit_account_path(@account)
 |
 = link_to 'Back', accounts_path

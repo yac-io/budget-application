@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171227022740) do
+ActiveRecord::Schema.define(version: 20171231182246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,25 @@ ActiveRecord::Schema.define(version: 20171227022740) do
     t.bigint "user_id"
     t.index ["account_id"], name: "index_payment_means_on_account_id"
     t.index ["user_id"], name: "index_payment_means_on_user_id"
+  end
+
+  create_table "recurring_transactions", force: :cascade do |t|
+    t.string "recurring_rule"
+    t.bigint "account_id"
+    t.bigint "payment_mean_id"
+    t.bigint "category_id"
+    t.string "name"
+    t.string "settlement_currency"
+    t.decimal "settlement_amount", precision: 8, scale: 2
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "last_run_date"
+    t.boolean "active", default: true
+    t.index ["account_id"], name: "index_recurring_transactions_on_account_id"
+    t.index ["category_id"], name: "index_recurring_transactions_on_category_id"
+    t.index ["payment_mean_id"], name: "index_recurring_transactions_on_payment_mean_id"
+    t.index ["user_id"], name: "index_recurring_transactions_on_user_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -84,6 +103,10 @@ ActiveRecord::Schema.define(version: 20171227022740) do
   add_foreign_key "categories", "users"
   add_foreign_key "payment_means", "accounts"
   add_foreign_key "payment_means", "users"
+  add_foreign_key "recurring_transactions", "accounts"
+  add_foreign_key "recurring_transactions", "categories"
+  add_foreign_key "recurring_transactions", "payment_means"
+  add_foreign_key "recurring_transactions", "users"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "payment_means"
