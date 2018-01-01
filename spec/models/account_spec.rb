@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Account, type: :model do
   it {should have_many(:transactions)}
   it {should have_many(:payment_means)}
+  it {should have_many(:recurring_transactions)}
 
   it {should belong_to(:user)}
 

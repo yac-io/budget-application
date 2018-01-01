@@ -6,7 +6,7 @@ class RecurringTransactionsController < ApplicationController
   # GET /recurring_transactions
   # GET /recurring_transactions.json
   def index
-    @recurring_transactions = RecurringTransaction.all
+    @recurring_transactions = @account.recurring_transactions.all
   end
 
   # GET /recurring_transactions/1
