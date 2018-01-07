@@ -7,12 +7,4 @@
       = link_to 'create a new account', new_account_path
       to get started
 
--@accounts.each do |account|
-  .mdl-card.account-summary
-    .mdl-card__title.mdl-card--expand
-      %h4
-        = account.name
-        %br
-        = "#{format_currency account.current_value, account.currency}"
-    .mdl-card__actions.mdl-card--border
-      =link_to 'View details', account_path(account.id), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'
+=render 'accounts/accounts', accounts: @accounts

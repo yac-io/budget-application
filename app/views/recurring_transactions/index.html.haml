@@ -2,6 +2,11 @@
   Recurring transactions for account
   = @account.name
 
+=link_to 'New Recurring transaction', new_account_recurring_transaction_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored'
+
+%br
+%br
+
 %table.mdl-data-table.mdl-shadow--2dp.table-full-size
   %thead
     %tr
@@ -39,5 +44,3 @@
 %br
 
 = link_to 'Back', account_path(@account)
-|
-= link_to 'New Recurring transaction', new_account_recurring_transaction_path(@account)
