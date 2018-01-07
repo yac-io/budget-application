@@ -16,6 +16,8 @@ class AccountsController < ApplicationController
   def new
     @account = Account.new
     @account.user = current_user
+
+
   end
 
   # GET /accounts/1/edit
