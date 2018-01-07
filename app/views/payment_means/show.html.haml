@@ -8,7 +8,7 @@
       Transactions from
       = date_field_tag :from, @from
       to
-      = date_field_tag :to, Date.today
+      = date_field_tag :to, Time.zone.now
     .check-filter
       %label{:for => 'checked_all'}
         All

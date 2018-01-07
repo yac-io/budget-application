@@ -11,7 +11,7 @@ RSpec.describe "transactions/show", type: :view do
                                                amount: "9.99",
                                                settlement_currency: "EUR",
                                                settlement_amount: "132.43",
-                                               date: Date.today
+                                               date: Time.zone.now
     ))
   end
 

@@ -5,15 +5,15 @@ task process_daily_recurring_transactions: :environment do
 end
 
 task process_weekly_recurring_transactions: :environment do
-  process_recurring_transactions('weekly') if Date.today.days_to_week_start == 0
+  process_recurring_transactions('weekly') if Time.zone.now.days_to_week_start == 0
 end
 
 task process_monthly_recurring_transactions: :environment do
-  process_recurring_transactions('monthly') if Date.today.day == 1
+  process_recurring_transactions('monthly') if Time.zone.now.day == 1
 end
 
 task process_yearly_recurring_transactions: :environment do
-  process_recurring_transactions('yearly') if Date.today.day == 1 && Date.today.month == 1
+  process_recurring_transactions('yearly') if Time.zone.now.day == 1 && Time.zone.now.month == 1
 end
 
 
@@ -29,9 +29,9 @@ def process_recurring_transactions(recurring_rule)
     transaction.settlement_amount = recurring_transaction.settlement_amount
     transaction.currency = recurring_transaction.settlement_currency
     transaction.amount = recurring_transaction.settlement_amount
-    transaction.date = Date.today
+    transaction.date = Time.zone.now
     transaction.save!
-    recurring_transaction.last_run_date = Date.today
+    recurring_transaction.last_run_date = Time.zone.now
     recurring_transaction.save!
   end
 end

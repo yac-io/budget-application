@@ -15,7 +15,7 @@ class Account < ApplicationRecord
 
 
   def current_value
-    transactions.where('date <= ?', Date.today).sum(:settlement_amount)
+    transactions.where('date <= ?', Time.zone.now).sum(:settlement_amount)
   end
 
   private
