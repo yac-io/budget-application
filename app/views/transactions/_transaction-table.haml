@@ -7,6 +7,7 @@
       %th.mdl-data-table__cell--non-numeric.mdl-data-table__header--sorted-descending Date
       %th.mdl-data-table__cell--non-numeric Name
       %th.mdl-data-table__cell--non-numeric Category
+      %th.mdl-data-table__cell--non-numeric Payment Mean
       %th.mdl-data-table__cell--numeric Amount
       %th.mdl-data-table__cell--non-numeric
       %th.mdl-data-table__cell--non-numeric
@@ -18,6 +19,7 @@
         %td= transaction.date
         %td= transaction.name
         %td= transaction.category.name unless transaction.category.nil?
+        %td= transaction.payment_mean.name
         %td.number= "#{format_currency transaction.settlement_amount, transaction.settlement_currency}"
         %td
           = link_to edit_account_transaction_path(transaction.account, transaction) do
