@@ -10,8 +10,8 @@ class PaymentMeansController < ApplicationController
   # GET /payment_means/1
   # GET /payment_means/1.json
   def show
-    @from = filter_params[:from] || Time.zone.now - 1.month
-    @to = filter_params[:to] || Time.zone.now
+    @from = filter_params[:from] || (Time.zone.now - 1.month).to_date
+    @to = filter_params[:to] || Time.zone.now.to_date
     @checked = filter_params[:checked]
 
     @transactions = @payment_mean.transactions.where('date >= ? and date <= ?', @from, @to)
