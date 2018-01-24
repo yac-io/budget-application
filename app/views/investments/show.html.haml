@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @investment.name
+%p
+  %b Isin:
+  = @investment.isin
+%p
+  %b Quantity:
+  = @investment.quantity
+%p
+  %b Settlement amount:
+  = @investment.settlement_amount
+%p
+  %b Settlement currency:
+  = @investment.settlement_currency
+%p
+  %b Date:
+  = @investment.date
+%p
+  %b Account:
+  = @investment.account
+
+= link_to 'Edit', edit_account_investment_path(@investment.account, @investment)
+\|
+= link_to 'Back', account_investments_path(@investment.account)

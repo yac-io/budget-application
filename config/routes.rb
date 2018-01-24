@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         put 'state'
       end
     end
+    resources :investments, except: [:index]
     resources :recurring_transactions, :path => '/recurring-transactions' do
       member do
         put 'disable'

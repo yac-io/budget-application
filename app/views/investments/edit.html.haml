@@ -1,0 +1,7 @@
+%h1 Editing investment
+
+= render 'form'
+
+= link_to 'Show', account_investment_path(@investment.account, @investment)
+\|
+= link_to 'Back', account_investments_path(@investment.account)

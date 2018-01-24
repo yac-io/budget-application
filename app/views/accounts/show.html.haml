@@ -1,25 +1,11 @@
-%h2
-  =@account.name
-  = "#{format_currency @account.current_value, @account.currency}"
 
-%h2
-  Current month:
-  = "#{format_currency @account.this_month_value, @account.currency}"
-  - unless @account.previous_month_value.zero?
-    (
-    = @account.this_month_to_previous_month_ratio
-    compared to previous month at this date)
+-if @account.cash?
+  = render 'cash_account'
 
-=link_to 'Add Transaction', new_account_transaction_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored'
+-if @account.investment?
+  = render 'investment_account'
 
-= link_to account_recurring_transactions_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' do
-  %i.material-icons autorenew
-  Recurring transactions
 
-%br
-%br
-
-=render 'transactions/transaction-table', transactions: @account.transactions
 
 = link_to 'Edit', edit_account_path(@account)
 |

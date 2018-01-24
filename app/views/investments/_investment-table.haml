@@ -1,0 +1,29 @@
+= javascript_pack_tag 'state-change-checkbox'
+
+%table#app.mdl-data-table.mdl-shadow--2dp.table-full-size
+  %thead
+    %tr
+      /%th &nbsp;
+      %th.mdl-data-table__cell--non-numeric.mdl-data-table__header--sorted-descending Date
+      %th.mdl-data-table__cell--non-numeric Name
+      %th.mdl-data-table__cell--non-numeric Isin
+      %th.mdl-data-table__cell--numeric Quantity
+      %th.mdl-data-table__cell--numeric Price
+      %th.mdl-data-table__cell--non-numeric
+      %th.mdl-data-table__cell--non-numeric
+  %tbody
+    -investments.each do |investment|
+      %tr{class: [("debit" if investment.quantity < 0 ), ("credit" if investment.quantity >= 0 )]}
+        /%td
+        /  %state-change-checkbox{'update-uri': state_account_transaction_path(transaction.account, transaction), 'start-checked': transaction.checked? ? 'true' : 'false'} }
+        %td= investment.date
+        %td= investment.name
+        %td= investment.isin
+        %td= investment.quantity
+        %td.number= "#{format_currency investment.settlement_amount, investment.settlement_currency}"
+        %td
+          = link_to edit_account_investment_path(investment.account, investment) do
+            %i.material-icons create
+        %td
+          = link_to account_investment_path(investment.account, investment), method: :delete, data: {confirm: 'Are you sure?'} do
+            %i.material-icons delete forever

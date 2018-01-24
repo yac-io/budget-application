@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171231182246) do
+ActiveRecord::Schema.define(version: 20180124054605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20171231182246) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "account_type", default: "cash", null: false
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -30,6 +31,21 @@ ActiveRecord::Schema.define(version: 20171231182246) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "investments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "isin", null: false
+    t.integer "quantity", null: false
+    t.decimal "settlement_amount", precision: 8, scale: 2, null: false
+    t.string "settlement_currency", null: false
+    t.date "date", null: false
+    t.bigint "user_id", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_investments_on_account_id"
+    t.index ["user_id"], name: "index_investments_on_user_id"
   end
 
   create_table "payment_means", force: :cascade do |t|
@@ -101,6 +117,8 @@ ActiveRecord::Schema.define(version: 20171231182246) do
 
   add_foreign_key "accounts", "users"
   add_foreign_key "categories", "users"
+  add_foreign_key "investments", "accounts"
+  add_foreign_key "investments", "users"
   add_foreign_key "payment_means", "accounts"
   add_foreign_key "payment_means", "users"
   add_foreign_key "recurring_transactions", "accounts"

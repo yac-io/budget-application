@@ -1,0 +1,9 @@
+%h2
+  =@account.name
+
+=link_to 'Add Investment', new_account_investment_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored'
+
+%br
+%br
+
+=render 'investments/investment-table', investments: @account.investments

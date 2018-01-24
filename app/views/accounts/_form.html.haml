@@ -13,5 +13,9 @@
   .form-group
     = form.label :currency, class: 'col-form-label'
     = form.text_field :currency, id: :account_currency, class: 'form-control'
+  .form-group
+    = form.label :account_type, class: 'col-form-label'
+    = form.select :account_type, [%w(Cash cash), %w(Investment investment)], id: :account_type, class: 'form-control'
+
   .actions
     = form.submit class: 'btn btn-primary'

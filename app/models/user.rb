@@ -8,4 +8,5 @@ class User < ApplicationRecord
   has_many :accounts
   has_many :categories
   has_many :payment_means
+  has_many :investments
 end
