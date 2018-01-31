@@ -3,12 +3,9 @@
   = "#{format_currency @account.current_value, @account.currency}"
 
 %h2
-  Current month:
-  = "#{format_currency @account.this_month_value, @account.currency}"
-  - unless @account.previous_month_value.zero?
-    (
-    = @account.this_month_to_previous_month_ratio
-    compared to previous month at this date)
+  = @date.strftime('%B %Y')
+  = ':'
+  = "#{format_currency @transactions.sum(:settlement_amount), @account.currency}"
 
 =link_to 'Add Transaction', new_account_transaction_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored'
 
@@ -19,4 +16,11 @@
 %br
 %br
 
-=render 'transactions/transaction-table', transactions: @account.transactions
+=render 'transactions/transaction-table', transactions: @transactions
+
+%br
+%br
+
+-@account.months_with_transactions.each do |month, _|
+  = link_to month.strftime('%B %Y'), account_path(@account, :month => month.strftime('%m'), :year => month.strftime('%Y') )
+  %br

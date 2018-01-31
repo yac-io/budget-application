@@ -31,12 +31,12 @@ class Account < ApplicationRecord
     transactions.where('date >= ? and date <= ?', Time.zone.now.at_beginning_of_month, Time.zone.now).sum(:settlement_amount)
   end
 
-  def previous_month_value
-    transactions.where('date >= ? and date <= ?', (Time.zone.now - 1.month).at_beginning_of_month, (Time.zone.now - 1.month)).sum(:settlement_amount)
+  def current_month_transactions
+    transactions.where('date >= ? and date <= ?', Time.zone.now.at_beginning_of_month, Time.zone.now.at_end_of_month)
   end
 
-  def this_month_to_previous_month_ratio
-    this_month_value / previous_month_value
+  def months_with_transactions
+    transactions.group_by { |t| t.date.at_beginning_of_month }
   end
 
   private
