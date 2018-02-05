@@ -1,10 +1,24 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: %i[show edit update destroy]
+  before_action :set_account, only: %i[show edit update destroy monthly_view]
 
   # GET /accounts
   # GET /accounts.json
   def index
     @accounts = current_user.accounts
+  end
+
+  def monthly_view
+    per_month_totals = @account.end_of_months_total
+
+    labels = []
+    data = []
+
+    per_month_totals.each do |month, value|
+      labels << month.strftime('%B %Y')
+      data << value
+    end
+
+    render :json => {:labels => labels, :series => data}
   end
 
   # GET /accounts/1
@@ -26,7 +40,8 @@ class AccountsController < ApplicationController
   end
 
   # GET /accounts/1/edit
-  def edit; end
+  def edit;
+  end
 
   # POST /accounts
   # POST /accounts.json
@@ -36,11 +51,11 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to @account, notice: 'Account was successfully created.' }
-        format.json { render :show, status: :created, location: @account }
+        format.html {redirect_to @account, notice: 'Account was successfully created.'}
+        format.json {render :show, status: :created, location: @account}
       else
-        format.html { render :new }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
+        format.html {render :new}
+        format.json {render json: @account.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -50,11 +65,11 @@ class AccountsController < ApplicationController
   def update
     respond_to do |format|
       if @account.update(account_params)
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
-        format.json { render :show, status: :ok, location: @account }
+        format.html {redirect_to @account, notice: 'Account was successfully updated.'}
+        format.json {render :show, status: :ok, location: @account}
       else
-        format.html { render :edit }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
+        format.html {render :edit}
+        format.json {render json: @account.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -64,8 +79,8 @@ class AccountsController < ApplicationController
   def destroy
     @account.destroy
     respond_to do |format|
-      format.html { redirect_to accounts_url, notice: 'Account was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html {redirect_to accounts_url, notice: 'Account was successfully destroyed.'}
+      format.json {head :no_content}
     end
   end
 

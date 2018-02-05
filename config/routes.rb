@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :categories
   resources :payment_means, :path => '/payment-means'
   resources :accounts do
+    member do
+      get 'monthly-view', to: 'accounts#monthly_view'
+    end
     resources :transactions, except: [:index] do
       member do
         put 'state'
