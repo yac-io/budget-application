@@ -1,5 +1,5 @@
-import Vue from 'vue/dist/vue.esm'
-import VueResources from 'vue-resource/dist/vue-resource.esm'
+import Vue from 'vue'
+import VueResources from 'vue-resource'
 
 Vue.use(VueResources);
 
