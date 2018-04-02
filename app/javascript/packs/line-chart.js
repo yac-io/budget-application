@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.esm'
 import VueResources from 'vue-resource'
 import Chartist from 'chartist'
 

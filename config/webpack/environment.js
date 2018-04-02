@@ -1,5 +1,5 @@
 const {environment} = require('@rails/webpacker');
-const vue = require('vue');
+const vue = require('./loaders/vue');
 
 const webpack = require('webpack');
 
