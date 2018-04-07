@@ -8,10 +8,17 @@
   = "#{format_currency @transactions.sum(:settlement_amount), @account.currency}"
 
 =link_to 'Add Transaction', new_account_transaction_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored'
+&nbsp;
 
 = link_to account_recurring_transactions_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' do
   %i.material-icons autorenew
   Recurring transactions
+&nbsp;
+
+= link_to report_account_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' do
+  %i.material-icons pie_chart
+  Reports
+
 
 %br
 %br

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :accounts do
     member do
       get 'monthly-view', to: 'accounts#monthly_view'
+      get 'report', to: 'accounts#report'
     end
     resources :transactions, except: [:index] do
       member do

@@ -24,4 +24,25 @@ RSpec.describe Transaction, type: :model do
     expect(transaction.settlement_currency).to eq('USD')
   end
 
+  it 'set the type to income when settlement amount is > 0' do
+    transaction = create(:transaction, settlement_amount: '10')
+    expect(transaction.income?).to be(true)
+    expect(transaction.expense?).to be(false)
+  end
+
+
+  it 'set the type to income when settlement amount is 0' do
+    transaction = create(:transaction, settlement_amount: '0')
+    expect(transaction.income?).to be(true)
+    expect(transaction.expense?).to be(false)
+  end
+
+
+  it 'set the type to expense when settlement amount is >= 0' do
+    transaction = create(:transaction, settlement_amount: '-10')
+    expect(transaction.income?).to be(false)
+    expect(transaction.expense?).to be(true)
+  end
+
+
 end

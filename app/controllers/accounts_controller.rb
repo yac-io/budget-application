@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: %i[show edit update destroy monthly_view]
+  before_action :set_account, only: %i[show edit update destroy monthly_view report]
 
   # GET /accounts
   # GET /accounts.json
@@ -31,6 +31,11 @@ class AccountsController < ApplicationController
     year ||= Time.zone.now.year
     @date = Time.zone.local(year, month, 1)
     @transactions = Transaction.where('date >= ? and date <= ? and account_id = ?', @date.at_beginning_of_month.to_date, @date.at_end_of_month.to_date, @account.id).order('date desc, id asc')
+  end
+
+  # GET /accounts/1/report
+  def report
+    @total_by_month_by_type = Transaction.total_by_month_by_transaction_type(@account.id)
   end
 
   # GET /accounts/new
