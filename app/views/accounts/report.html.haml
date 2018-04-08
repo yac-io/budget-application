@@ -1,8 +1,29 @@
 .chart
   - labels = raw @total_by_month_by_type.map{|date,_| (date.month.to_s + "/" +date.year.to_s).html_safe}.to_json
-  - expense = raw @total_by_month_by_type.map{|_,v| v[:expense].abs.to_s.html_safe}.to_json
-  - income = raw @total_by_month_by_type.map{|_,v| v[:income].abs.to_s.html_safe}.to_json
+  - expense = raw @total_by_month_by_type.map{|_,v| v['expense'].abs.to_s.html_safe}.to_json
+  - income = raw @total_by_month_by_type.map{|_,v| v['income'].abs.to_s.html_safe}.to_json
 
   %bar-chart{':labels' => labels, ':serie1' => expense, 'name1' => "Expense", 'class-name1' => "ct-series-a", ':serie2' => income, 'name2' => "Income", 'class-name2' => 'ct-series-f'}
 
+.pie-chart
+  - @expense_by_month_by_category.to_a.reverse.each do |date, expenses|
+    - labels = raw expenses.map{|category_name, _| category_name.html_safe}.to_json
+    - amounts = raw expenses.map{|_, amount| amount.abs.to_s.html_safe}.to_json
+    - total = expenses.map{|_,amount| amount.abs}.sum
+
+    .mdl-card.account-summary
+      .mdl-card__title.mdl-card--expand
+        %h4
+          = date.strftime('%B %Y')
+      .mdl-card__supporting-text
+        %pie-chart{':labels' => labels, ':series'=> amounts, 'title' => date.strftime('%B-%Y')}
+        %br
+        -expenses.sort_by{|_, amount| amount}.each do |category, amount|
+          = category
+          = (amount.abs/total).round(2)*100
+          \%
+          %br
+
+
 = javascript_pack_tag 'bar-chart'
+= javascript_pack_tag 'pie-chart'

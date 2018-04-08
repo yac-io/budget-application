@@ -10,6 +10,16 @@ class Transaction < ApplicationRecord
         .sum('settlement_amount')
   }
 
+  scope :expense_by_month_by_category, lambda {|account_id|
+    joins(:category)
+        .where('account_id = ? and transaction_type = ?', account_id, Transaction.transaction_types[:expense])
+        .group('extract(year from date)')
+        .group('extract(month from date)')
+        .group('categories.name')
+        .order('extract(year from date) asc, extract(month from date) asc, categories.name')
+        .sum('settlement_amount')
+  }
+
   belongs_to :account
   belongs_to :payment_mean
   belongs_to :user
@@ -25,23 +35,6 @@ class Transaction < ApplicationRecord
 
   before_save :currency_as_uppercase, :set_type
 
-  def self.total_by_month_by_transaction_type(account_id)
-    by_month = {}
-    months = []
-    Transaction.by_month_by_type(account_id).each do |k, v|
-      month = Date.new(k[0].to_i, k[1].to_i, 1)
-      months << month
-
-      by_month[month] = {expense: 0, income: 0} if by_month[month].nil?
-
-      if k[2] == Transaction.transaction_types[:expense] || k[2] == 'expense'
-        by_month[month][:expense] = v
-      else
-        by_month[month][:income] = v
-      end
-    end
-    by_month
-  end
 
   private
 
