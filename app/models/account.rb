@@ -40,7 +40,12 @@ class Account < ApplicationRecord
   end
 
   def total_transactions_per_month
-    transactions.unscope(:order).group("DATE_TRUNC('month', date)").order("DATE_TRUNC('month', date)").sum('settlement_amount')
+    transactions
+        .unscope(:order)
+        .where('date <= ?', Time.zone.now.at_end_of_month)
+        .group("DATE_TRUNC('month', date)")
+        .order("DATE_TRUNC('month', date)")
+        .sum('settlement_amount')
   end
 
   def end_of_months_total
