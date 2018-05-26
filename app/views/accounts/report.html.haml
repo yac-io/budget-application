@@ -1,7 +1,7 @@
 .chart
   - labels = raw @total_by_month_by_type.map{|date,_| (date.month.to_s + "/" +date.year.to_s).html_safe}.to_json
-  - expense = raw @total_by_month_by_type.map{|_,v| v['expense'].abs.to_s.html_safe}.to_json
-  - income = raw @total_by_month_by_type.map{|_,v| v['income'].abs.to_s.html_safe}.to_json
+  - expense = raw @total_by_month_by_type.map{|_,v| v['expense'].nil? ? [] : v['expense'].abs.to_s.html_safe}.to_json
+  - income = raw @total_by_month_by_type.map{|_,v| v['income'].nil? ? [] : v['income'].abs.to_s.html_safe}.to_json
 
   %bar-chart{':labels' => labels, ':serie1' => expense, 'name1' => "Expense", 'class-name1' => "ct-series-a", ':serie2' => income, 'name2' => "Income", 'class-name2' => 'ct-series-f'}
 
