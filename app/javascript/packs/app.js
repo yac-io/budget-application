@@ -10,6 +10,13 @@
 import "jquery"
 import "material-design-lite";
 
+import Chartkick from "chartkick";
+window.Chartkick = Chartkick;
+
+
+import Chart from "chart.js";
+Chartkick.addAdapter(Chart);
+
 /*document.addEventListener('turbolinks:load', function () {
     componentHandler.upgradeDom();
 });*/

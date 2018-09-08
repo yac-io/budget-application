@@ -7,7 +7,7 @@
           %br
           = "#{format_currency account.current_value, account.currency}"
       .mdl-card__supporting-text
-        %line-chart{'data-uri' => monthly_view_account_path(account), 'account-id' => account.id}
+        = line_chart Transaction.where('account_id = ?', account.id).group_by_month(:date).sum(:settlement_amount)
       .mdl-card__actions.mdl-card--border
         =link_to 'View details', account_path(account.id), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'
       .mdl-card__menu
@@ -18,5 +18,3 @@
             =link_to 'Edit', edit_account_path(account)
           %li.mdl-menu__item
             = link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }
-
-= javascript_pack_tag 'line-chart'

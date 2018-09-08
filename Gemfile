@@ -63,6 +63,10 @@ gem 'haml'
 gem "haml-rails", "~> 1.0"
 gem 'devise'
 
+gem "chartkick"
+gem 'groupdate'
+
+
 group :production do
   gem 'newrelic_rpm'
 end

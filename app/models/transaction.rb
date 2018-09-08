@@ -1,23 +1,12 @@
 class Transaction < ApplicationRecord
   enum transaction_type: {income: 0, expense: 1}
 
-  scope :by_month_by_type, lambda {|account_id|
-    where('account_id = ?', account_id)
-        .group('extract(year from date)')
-        .group('extract(month from date)')
-        .group('transaction_type')
-        .order('extract(year from date) asc, extract(month from date) asc')
-        .sum('settlement_amount')
+  scope :expenses, lambda {|account_id|
+    where('account_id = ? and transaction_type = ?', account_id, Transaction.transaction_types[:expense])
   }
 
-  scope :expense_by_month_by_category, lambda {|account_id|
-    joins(:category)
-        .where('account_id = ? and transaction_type = ?', account_id, Transaction.transaction_types[:expense])
-        .group('extract(year from date)')
-        .group('extract(month from date)')
-        .group('categories.name')
-        .order('extract(year from date) asc, extract(month from date) asc, categories.name')
-        .sum('settlement_amount')
+  scope :incomes, lambda {|account_id|
+    where('account_id = ? and transaction_type = ?', account_id, Transaction.transaction_types[:income])
   }
 
   belongs_to :account

@@ -35,8 +35,9 @@ class AccountsController < ApplicationController
 
   # GET /accounts/1/report
   def report
-    @total_by_month_by_type = flatten_by_month(Transaction.by_month_by_type(@account.id))
-    @expense_by_month_by_category = flatten_by_month(Transaction.expense_by_month_by_category(@account.id))
+    @expenses = Transaction.expenses(@account.id).joins(:category).where('date >= ?', 1.year.ago.at_beginning_of_day.at_beginning_of_month)
+    @incomes = Transaction.incomes(@account.id).joins(:category).where('date >= ?', 1.year.ago.at_beginning_of_day.at_beginning_of_month)
+    @transactions = Transaction.where('account_id = ?', @account.id)
   end
 
   # GET /accounts/new
@@ -104,19 +105,6 @@ class AccountsController < ApplicationController
 
   def filter_params
     params.require(:account).permit(':month')
-  end
-
-
-  def flatten_by_month(by_month_by)
-    by_month = {}
-    months = []
-    by_month_by.each do |k, v|
-      month = Date.new(k[0].to_i, k[1].to_i, 1)
-      months << month
-      by_month[month] = {} if by_month[month].nil?
-      by_month[month][k[2]] = v
-    end
-    by_month
   end
 
 end
