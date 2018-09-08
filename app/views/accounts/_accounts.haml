@@ -7,7 +7,7 @@
           %br
           = "#{format_currency account.current_value, account.currency}"
       .mdl-card__supporting-text
-        = line_chart Transaction.where('account_id = ?', account.id).group_by_month(:date).sum(:settlement_amount)
+        = line_chart Transaction.where('account_id = ?', account.id).group_by_month(:date, time_zone: false).sum(:settlement_amount)
       .mdl-card__actions.mdl-card--border
         =link_to 'View details', account_path(account.id), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'
       .mdl-card__menu

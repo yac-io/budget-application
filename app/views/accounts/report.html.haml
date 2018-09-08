@@ -1,5 +1,5 @@
 .chart
-  = line_chart @transactions.group(:transaction_type).group_by_month(:date).sum('abs(settlement_amount)')
+  = line_chart @transactions.group(:transaction_type).group_by_month(:date, time_zone: false).sum('abs(settlement_amount)')
 
 .pie-chart
   .mdl-card.account-summary
