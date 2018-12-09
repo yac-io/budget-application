@@ -8,7 +8,6 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import "jquery"
-import "material-design-lite";
 
 import Chartkick from "chartkick";
 window.Chartkick = Chartkick;

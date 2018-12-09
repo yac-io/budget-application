@@ -3,6 +3,7 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{'http-equiv' => "X-UA-Compatible", :content => "IE=edge"}/
+    %meta{:name => "viewport", :content =>"width=device-width, initial-scale=1, shrink-to-fit=no"}/
     %title BudgetApplication
     %link{:rel => 'stylesheet', :href => 'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en'}
     %link{:rel => 'stylesheet', :href => 'https://fonts.googleapis.com/icon?family=Material+Icons'}
@@ -12,37 +13,29 @@
     = javascript_include_tag 'application'
   %body
     = javascript_pack_tag 'app'
-    .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
-      %header.mdl-layout__header
-        .mdl-layout__header-row
-          %span.mdl-layout-title Yac.io
-          .mdl-layout-spacer
-          -if user_signed_in?
-            %nav.mdl-navigation.mdl-layout--large-screen-only
-              =link_to 'Home', root_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
-              =link_to 'Accounts', accounts_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
-              =link_to 'Payment Means', payment_means_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
-              =link_to 'Categories', categories_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
-            %button.android-more-button.mdl-button.mdl-js-button.mdl-button--icon.mdl-js-ripple-effect#more-button
-              %i.material-icons more_vert
-            %ul.mdl-menu.mdl-js-menu.mdl-menu--bottom-right.mdl-js-ripple-effect{:for => 'more-button'}
-              %li.mdl-menu__item
-                = link_to 'Sign out', destroy_user_session_path, method: 'delete', class: 'mdl-navigation__link mdl-typography--text-uppercase'
-      -if user_signed_in?
-        .mdl-layout__drawer
-          %span.mdl-layout-title Yac.io
-          %nav.mdl-navigation
-            =link_to 'Home', root_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
-            =link_to 'Accounts', accounts_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
-            =link_to 'Payment Means', payment_means_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
-            =link_to 'Categories', categories_path, class: 'mdl-navigation__link mdl-typography--text-uppercase'
-      %main.mdl-layout__content
-        .page-content
-          -if notice
-            .alert.alert-info
-              =notice
-          -if alert
-            .alert.alert-danger
-              =alert
-          = yield
+    %nav.navbar.navbar-expand-md.fixed-top.navbar-dark.bg-dark
+      =link_to 'Budgetizr', root_path, class: 'navbar-brand'
+      %button.navbar-toggler{:type => "button", :data => {:toggle => 'collapse', :target=> '#navBarMenu'}}
+        %span.navbar-toggler-icon
+      .collapse.navbar-collapse#navBarMenu
+        -if user_signed_in?
+          %ul.navbar-nav.mr-auto
+            %li.nav-item
+              =link_to 'Home', root_path, class: 'nav-link'
+            %li.nav-item
+              =link_to 'Accounts', accounts_path, class: 'nav-link'
+            %li.nav-item
+              =link_to 'Payment Means', payment_means_path, class: 'nav-link'
+            %li.nav-item
+              =link_to 'Categories', categories_path, class: 'nav-link'
+            %li.nav-item
+              = link_to 'Sign out', destroy_user_session_path, method: 'delete', class: 'nav-link'
+    %main.container
+      -if notice
+        .alert.alert-info
+          =notice
+      -if alert
+        .alert.alert-danger
+          =alert
+      = yield
 

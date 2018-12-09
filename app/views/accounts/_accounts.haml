@@ -1,20 +1,18 @@
-.charts
+.row
   -@accounts.each do |account|
-    .mdl-card.account-summary
-      .mdl-card__title.mdl-card--expand
-        %h4
-          = account.name
-          %br
-          = "#{format_currency account.current_value, account.currency}"
-      .mdl-card__supporting-text
-        = line_chart Transaction.where('account_id = ?', account.id).group_by_month(:date, time_zone: false).sum(:settlement_amount)
-      .mdl-card__actions.mdl-card--border
-        =link_to 'View details', account_path(account.id), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'
-      .mdl-card__menu
-        %button.mdl-button.mdl-js-button.mdl-button--icon{:id => "menu-lower-right-#{account.id}"}
-          %i.material-icons more_vert
-        %ul.mdl-menu.mdl-menu--bottom-left.mdl-js-menu.mdl-js-ripple-effect{:for => "menu-lower-right-#{account.id}"}
-          %li.mdl-menu__item
-            =link_to 'Edit', edit_account_path(account)
-          %li.mdl-menu__item
-            = link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }
+    .col-sm-4
+      .card.mb-4.shadow-sm
+        - data = Transaction.where('account_id = ?', account.id).group_by_month(:date, time_zone: false).sum(:settlement_amount)
+        - min = data.map{|d| d[1]}.min.nil? ? nil : data.map{|d| d[1]}.min - 500
+        - max = data.map{|d| d[1]}.max.nil? ? nil : data.map{|d| d[1]}.max + 500
+        = line_chart data, height: "225px", min: min, max: max
+        .card-body
+          %p.card-text
+            %h4
+              = account.name
+              = "#{format_currency account.current_value, account.currency}"
+          .d-flex.justify-content-between.align-items.center
+            .btn-group
+              =link_to 'View details', account_path(account.id), class: 'btn btn-sm btn-outline-secondary'
+            %small.text-muted
+              = account.transactions.last.date unless account.transactions.last.nil?
