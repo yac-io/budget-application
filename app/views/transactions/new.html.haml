@@ -1,7 +1,7 @@
-.mdl-grid
-  .mdl-cell.mdl-cell--4-col
-    &nbsp;
-  .mdl-cell.mdl-cell--4-col
-    %h1 New Transaction
-    = render 'form', transaction: @transaction
-    = link_to 'Back', account_path(@transaction.account)
+.row
+  .col
+    .card
+      .card-body
+        %h1 New Transaction
+        = render 'form', transaction: @transaction
+        = link_to 'Back', account_path(@transaction.account)
