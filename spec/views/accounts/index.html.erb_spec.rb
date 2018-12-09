@@ -10,6 +10,6 @@ RSpec.describe 'accounts/index', type: :view do
 
   it 'renders a list of accounts' do
     render
-    assert_select '.mdl-card>.mdl-card__title>h4', text: 'Name'.to_s+"\n\n0.00 USD".to_s, count: 2
+    assert_select '.card>.card-body>h4', text: 'Name'.to_s+"\n0.00 USD".to_s, count: 2
   end
 end

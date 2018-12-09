@@ -7,18 +7,28 @@
   = ':'
   = "#{format_currency @transactions.sum(:settlement_amount), @account.currency}"
 
-=link_to 'Add Transaction', new_account_transaction_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored'
-&nbsp;
 
-= link_to account_recurring_transactions_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' do
-  %i.material-icons autorenew
-  Recurring transactions
-&nbsp;
-
-= link_to report_account_path(@account), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' do
-  %i.material-icons pie_chart
-  Reports
-
+.row
+  .col-md-11
+    .btn-group
+      = link_to new_account_transaction_path(@account), class: 'btn btn-sm btn-outline-secondary' do
+        %i.fas.fa-plus
+        Add Transaction
+      = link_to account_recurring_transactions_path(@account), class: 'btn btn-sm btn-outline-secondary' do
+        %i.fas.fa-sync-alt
+        Recurring transactions
+      = link_to report_account_path(@account), class: 'btn btn-sm btn-outline-secondary' do
+        %i.fas.fa-chart-line
+        Reports
+  .col-md-1
+    .btn-group
+      .dropdown
+        %button.btn.btn-sm.btn-outline-secondary#changeMonth{:data => {:toggle => 'dropdown'}}
+          %i.fas.fa-calendar-alt
+          = @date.strftime('%B %Y')
+        .dropdown-menu
+          -@account.months_with_transactions.each do |month, _|
+            = link_to month.strftime('%B %Y'), account_path(@account, :month => month.strftime('%m'), :year => month.strftime('%Y') ), class: 'dropdown-item'
 
 %br
 %br
@@ -28,6 +38,5 @@
 %br
 %br
 
--@account.months_with_transactions.each do |month, _|
-  = link_to month.strftime('%B %Y'), account_path(@account, :month => month.strftime('%m'), :year => month.strftime('%Y') )
+
   %br
