@@ -35,9 +35,17 @@ class AccountsController < ApplicationController
 
   # GET /accounts/1/report
   def report
-    @expenses = Transaction.expenses(@account.id).joins(:category).where('date >= ?', 1.year.ago.at_beginning_of_day.at_beginning_of_month)
-    @incomes = Transaction.incomes(@account.id).joins(:category).where('date >= ?', 1.year.ago.at_beginning_of_day.at_beginning_of_month)
-    @transactions = Transaction.where('account_id = ?', @account.id)
+    month = params[:month].to_i unless params[:month].blank? || params[:month].to_i.zero?
+    year = params[:year].to_i unless params[:year].blank? || params[:year].to_i.zero?
+
+    month ||= 1.year.ago.month
+    year ||= 1.year.ago.year
+
+    @date = Time.zone.local(year, month, 1)
+
+    @expenses = Transaction.expenses(@account.id).joins(:category).where('date >= ?', @date.at_beginning_of_day.at_beginning_of_month)
+    @incomes = Transaction.incomes(@account.id).joins(:category).where('date >= ?', @date.at_beginning_of_day.at_beginning_of_month)
+    @transactions = Transaction.where('account_id = ?', @account.id).where('date >= ?',@date.at_beginning_of_day.at_beginning_of_month)
   end
 
   # GET /accounts/new
