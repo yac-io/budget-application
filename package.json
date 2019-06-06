@@ -2,7 +2,7 @@
   "name": "budget-application",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^3.0.2",
+    "@rails/webpacker": "^4.0.7",
     "chart.js": "^2.7.2",
     "chartkick": "^3.0.1",
     "coffeescript": "1.12.7",
@@ -14,6 +14,6 @@
     "vue-template-compiler": "^2.5.16"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.1.11"
+    "webpack-dev-server": "^3.6.0"
   }
 }
