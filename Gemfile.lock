@@ -140,7 +140,7 @@ GEM
     pg (0.21.0)
     popper_js (1.14.5)
     public_suffix (4.0.1)
-    puma (3.12.1)
+    puma (3.12.2)
     rack (2.0.7)
     rack-proxy (0.6.5)
       rack
@@ -280,7 +280,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   newrelic_rpm
   pg (~> 0.21)
-  puma (~> 3.7)
+  puma (~> 3.12)
   rails (~> 5.2)
   rspec-rails (~> 3.8)
   sass-rails (~> 5.0)
