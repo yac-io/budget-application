@@ -4,7 +4,7 @@ cache:
   - yarn
 sudo: false
 rvm:
-  - 2.6
+  - 2.6.6
 
 bundler_args: "--without development"
 
