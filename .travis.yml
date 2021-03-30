@@ -16,6 +16,7 @@ services:
   - postgresql
 
 before_script:
+  - nvm install node  
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp config/database.yml.travis config/database.yml
   - yarn install --ignore-engines
