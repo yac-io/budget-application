@@ -2,7 +2,7 @@
   "name": "budget-application",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^6.0.0-beta.6",
+    "@rails/webpacker": "5.2.1",
     "chart.js": "^2.8.0",
     "chartkick": "^3.1.0",
     "coffeescript": "1.12.7",
