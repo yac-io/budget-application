@@ -4,7 +4,7 @@ RSpec.describe Transaction, type: :model do
   it {is_expected.to belong_to(:account)}
   it {is_expected.to belong_to(:payment_mean)}
   it {is_expected.to belong_to(:category)}
-  it {is_expected.to belong_to(:user)}
+  it {is_expected.to belong_to(:user).optional}
 
   it {is_expected.to validate_presence_of(:name)}
   it {is_expected.to validate_presence_of(:account)}
