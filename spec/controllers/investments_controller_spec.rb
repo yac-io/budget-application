@@ -51,7 +51,7 @@ RSpec.describe InvestmentsController, type: :controller do
       valid_attributes[:user_id] = @user.id
       investment = Investment.create! valid_attributes
       get :show, params: {id: investment.to_param, account_id: investment.account.id}, session: valid_session
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
@@ -59,7 +59,7 @@ RSpec.describe InvestmentsController, type: :controller do
     it 'returns a success response' do
       account = create(:account, user: @user)
       get :new, params: {account_id: account.id}, session: valid_session
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
@@ -68,7 +68,7 @@ RSpec.describe InvestmentsController, type: :controller do
       valid_attributes[:user_id] = @user.id
       investment = Investment.create! valid_attributes
       get :edit, params: {id: investment.to_param, account_id: investment.account.id}, session: valid_session
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
@@ -92,7 +92,7 @@ RSpec.describe InvestmentsController, type: :controller do
       it "returns a success response (i.e. to display the 'new' template)" do
         account = create(:account, user: @user)
         post :create, params: {investment: invalid_attributes, account_id: account.id}, session: valid_session
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
       end
     end
   end
@@ -124,7 +124,7 @@ RSpec.describe InvestmentsController, type: :controller do
         valid_attributes[:user_id] = @user.id
         investment = Investment.create! valid_attributes
         put :update, params: {id: investment.to_param, investment: invalid_attributes, account_id: investment.account.id}, session: valid_session
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
       end
     end
   end

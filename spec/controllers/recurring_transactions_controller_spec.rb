@@ -51,7 +51,7 @@ RSpec.describe RecurringTransactionsController, type: :controller do
       valid_attributes[:user_id] = @user.id
       recurring_transaction = RecurringTransaction.create! valid_attributes
       get :index, params: {account_id: recurring_transaction.account.id}, session: valid_session
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
@@ -60,7 +60,7 @@ RSpec.describe RecurringTransactionsController, type: :controller do
       valid_attributes[:user_id] = @user.id
       recurring_transaction = RecurringTransaction.create! valid_attributes
       get :show, params: {id: recurring_transaction.to_param, account_id: recurring_transaction.account.id}, session: valid_session
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
@@ -68,7 +68,7 @@ RSpec.describe RecurringTransactionsController, type: :controller do
     it 'returns a success response' do
       account = create(:account, user: @user)
       get :new, params: {account_id: account.id}, session: valid_session
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
@@ -77,7 +77,7 @@ RSpec.describe RecurringTransactionsController, type: :controller do
       valid_attributes[:user_id] = @user.id
       recurring_transaction = RecurringTransaction.create! valid_attributes
       get :edit, params: {id: recurring_transaction.to_param, account_id: recurring_transaction.account.id}, session: valid_session
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
@@ -101,7 +101,7 @@ RSpec.describe RecurringTransactionsController, type: :controller do
       it "returns a success response (i.e. to display the 'new' template)" do
         account = create(:account, user: @user)
         post :create, params: {recurring_transaction: invalid_attributes, account_id: account.id}, session: valid_session
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
       end
     end
   end
@@ -132,7 +132,7 @@ RSpec.describe RecurringTransactionsController, type: :controller do
       it "returns a success response (i.e. to display the 'edit' template)" do
         recurring_transaction = RecurringTransaction.create! valid_attributes
         put :update, params: {id: recurring_transaction.to_param, recurring_transaction: invalid_attributes, account_id: recurring_transaction.account.id}, session: valid_session
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
       end
     end
   end

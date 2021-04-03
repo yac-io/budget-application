@@ -51,7 +51,7 @@ RSpec.describe PaymentMeansController, type: :controller do
       valid_attributes[:user_id] = @user.id
       payment_mean = PaymentMean.create! valid_attributes
       get :index, params: {}, session: valid_session
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
@@ -60,14 +60,14 @@ RSpec.describe PaymentMeansController, type: :controller do
       valid_attributes[:user_id] = @user.id
       payment_mean = PaymentMean.create! valid_attributes
       get :show, params: {id: payment_mean.to_param}, session: valid_session
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET #new" do
     it "returns a success response" do
       get :new, params: {}, session: valid_session
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
@@ -76,7 +76,7 @@ RSpec.describe PaymentMeansController, type: :controller do
       valid_attributes[:user_id] = @user.id
       payment_mean = PaymentMean.create! valid_attributes
       get :edit, params: {id: payment_mean.to_param}, session: valid_session
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
@@ -99,7 +99,7 @@ RSpec.describe PaymentMeansController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: {payment_mean: invalid_attributes}, session: valid_session
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
       end
     end
   end
@@ -131,7 +131,7 @@ RSpec.describe PaymentMeansController, type: :controller do
         valid_attributes[:user_id] = @user.id
         payment_mean = PaymentMean.create! valid_attributes
         put :update, params: {id: payment_mean.to_param, payment_mean: invalid_attributes}, session: valid_session
-        expect(response).to be_success
+        expect(response).to have_http_status(:success)
       end
     end
   end
