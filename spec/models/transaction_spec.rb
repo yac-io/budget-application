@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
-  it {should belong_to(:account)}
-  it {should belong_to(:payment_mean)}
-  it {should belong_to(:category)}
-  it {should belong_to(:user)}
+  it {is_expected.to belong_to(:account)}
+  it {is_expected.to belong_to(:payment_mean)}
+  it {is_expected.to belong_to(:category)}
+  it {is_expected.to belong_to(:user)}
 
-  it {should validate_presence_of(:name)}
-  it {should validate_presence_of(:account)}
-  it {should validate_presence_of(:payment_mean)}
-  it {should validate_presence_of(:date)}
-  it {should validate_presence_of(:currency)}
-  it {should validate_presence_of(:amount)}
-  it {should validate_presence_of(:user)}
+  it {is_expected.to validate_presence_of(:name)}
+  it {is_expected.to validate_presence_of(:account)}
+  it {is_expected.to validate_presence_of(:payment_mean)}
+  it {is_expected.to validate_presence_of(:date)}
+  it {is_expected.to validate_presence_of(:currency)}
+  it {is_expected.to validate_presence_of(:amount)}
+  it {is_expected.to validate_presence_of(:user)}
 
   it 'save currency as uppercase' do
     transaction = create(:transaction, currency: 'usd')

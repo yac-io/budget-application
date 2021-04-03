@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe RecurringTransaction, type: :model do
-  it {should belong_to(:account)}
-  it {should belong_to(:payment_mean)}
-  it {should belong_to(:category)}
-  it {should belong_to(:user)}
+  it {is_expected.to belong_to(:account)}
+  it {is_expected.to belong_to(:payment_mean)}
+  it {is_expected.to belong_to(:category)}
+  it {is_expected.to belong_to(:user)}
 
-  it {should validate_presence_of(:name)}
-  it {should validate_presence_of(:account)}
-  it {should validate_presence_of(:payment_mean)}
-  it {should validate_presence_of(:recurring_rule)}
-  it {should validate_presence_of(:settlement_currency)}
-  it {should validate_presence_of(:settlement_amount)}
-  it {should validate_presence_of(:user)}
+  it {is_expected.to validate_presence_of(:name)}
+  it {is_expected.to validate_presence_of(:account)}
+  it {is_expected.to validate_presence_of(:payment_mean)}
+  it {is_expected.to validate_presence_of(:recurring_rule)}
+  it {is_expected.to validate_presence_of(:settlement_currency)}
+  it {is_expected.to validate_presence_of(:settlement_amount)}
+  it {is_expected.to validate_presence_of(:user)}
 
 
   it 'save settlement currency as uppercase' do

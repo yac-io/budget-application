@@ -1,19 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Account, type: :model do
-  it {should have_many(:transactions)}
-  it {should have_many(:payment_means)}
-  it {should have_many(:recurring_transactions)}
-  it {should have_many(:investments)}
+  it {is_expected.to have_many(:transactions)}
+  it {is_expected.to have_many(:payment_means)}
+  it {is_expected.to have_many(:recurring_transactions)}
+  it {is_expected.to have_many(:investments)}
 
-  it {should belong_to(:user)}
+  it {is_expected.to belong_to(:user)}
 
-  it {should validate_presence_of(:user)}
-  it {should validate_presence_of(:name)}
-  it {should validate_presence_of(:currency)}
-  it {should validate_length_of(:currency).is_equal_to(3)}
-  it {should validate_presence_of(:account_type)}
-  it {should validate_inclusion_of(:account_type).in_array(%w[cash investment])}
+  it {is_expected.to validate_presence_of(:user)}
+  it {is_expected.to validate_presence_of(:name)}
+  it {is_expected.to validate_presence_of(:currency)}
+  it {is_expected.to validate_length_of(:currency).is_equal_to(3)}
+  it {is_expected.to validate_presence_of(:account_type)}
+  it {is_expected.to validate_inclusion_of(:account_type).in_array(%w[cash investment])}
 
   it 'save currency as uppercase' do
     account = create(:account, currency: 'usd')
