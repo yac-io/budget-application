@@ -62,8 +62,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'webpacker', '~> 5.x'
 
-gem 'haml'
-gem "haml-rails", "~> 1.0"
+gem 'haml', '~> 5.2'
+gem "haml-rails", "~> 2.0"
 gem 'devise'
 
 gem "chartkick"
