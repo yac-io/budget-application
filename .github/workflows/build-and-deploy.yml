@@ -41,9 +41,9 @@ jobs:
         run: rake db:test:load
       - name: Install node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
-          with:
-            node-version: ${{ matrix.node-version }}
-            cache: 'npm'
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
         run: npm -g install yarn
       - name: Install yarn dependencies
         run: |
