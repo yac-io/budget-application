@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Heroku credentials
         run: |
           cat > ~/.netrc <<EOF
@@ -29,6 +31,6 @@ jobs:
       - name: Create remote
         run: heroku git:remote -a yac-budget
       - name: Deploy
-        run: git push -f heroku HEAD:main
+        run: git push heroku HEAD:main
       - name: Rails migration
         run: heroku run rake db:migrate
