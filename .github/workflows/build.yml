@@ -1,0 +1,7 @@
+name: "Build"
+on:
+  pull_request:
+    branches: [ master ]
+jobs:
+  call-run-tests:
+    uses: ./.github/workflows/run-tests.yml
