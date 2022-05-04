@@ -10,9 +10,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      DATABASE_URL: "postgres://budget:budget@localhost:5432/budget-application_test"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -34,6 +31,4 @@ jobs:
       - name: Deploy
         run: git push heroku main
       - name: Rails migration
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku run rake db:migrate
