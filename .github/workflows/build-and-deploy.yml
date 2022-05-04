@@ -3,7 +3,6 @@ on:
   push:
     branches: [ master ]
 jobs:
-  environment:
   run-tests:
     uses: ./.github/workflows/run-tests.yml
   deploy:
