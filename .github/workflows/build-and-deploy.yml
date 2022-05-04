@@ -3,7 +3,9 @@ on:
   push:
     branches: [ master ]
 jobs:
-  call-run-tests:
+  run-tests:
     uses: ./.github/workflows/run-tests.yml
-  call-deploy:
+  deploy:
+    needs:
+      - run-tests
     uses: ./.github/workflows/deploy.yml
