@@ -26,11 +26,12 @@ jobs:
               login $HEROKU_EMAIL
               password $HEROKU_API_KEY
           EOF
+          echo $HEROKU_EMAIL
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
       - name: Create remote
-        run: heroku git:remote -a budget-application
+        run: heroku git:remote -a yac-budget
       - name: Deploy
         run: git push heroku main
       - name: Rails migration
