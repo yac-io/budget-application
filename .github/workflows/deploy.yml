@@ -29,6 +29,6 @@ jobs:
       - name: Create remote
         run: heroku git:remote -a yac-budget
       - name: Deploy
-        run: git push heroku main
+        run: git push -u heroku main
       - name: Rails migration
         run: heroku run rake db:migrate
