@@ -4,6 +4,8 @@ on:
     secrets:
       HEROKU_API_KEY:
         required: true
+      HEROKU_EMAIL:
+        required: true
 
 jobs:
   deploy:
@@ -14,13 +16,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Create remote
+      - name: Heroku credentials
+        run: |
+          cat > ~/.netrc <<EOF
+            machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+            machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+          EOF
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+      - name: Create remote
         run: heroku git:remote -a budget-application
       - name: Deploy
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: git push heroku main
       - name: Rails migration
         env:
