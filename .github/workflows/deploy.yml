@@ -14,19 +14,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Login to Heroku container
+      - name: Login to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:login
-      # Add or replace database setup steps here
-      - name: Build and push
+        run: heroku login
+      - name: Create remote
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push -a appname yac-budget
-      - name: Release
+        run: heroku git:remote -a example-app
+      - name: Deploy
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:release -a appname yac-budget
+        run: git push heroku main
       - name: Rails migration
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}

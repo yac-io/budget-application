@@ -9,5 +9,3 @@ jobs:
     needs:
       - run-tests
     uses: ./.github/workflows/deploy.yml
-    secrets:
-      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
