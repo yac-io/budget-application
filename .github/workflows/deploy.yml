@@ -26,8 +26,6 @@ jobs:
               login $HEROKU_EMAIL
               password $HEROKU_API_KEY
           EOF
-          if [ -z "$HEROKU_EMAIL" ]; then echo "email is blank"; else echo "email is set to '$HEROKU_EMAIL'"; fi
-          if [ -z "$HEROKU_API_KEY" ]; then echo "apikey is blank"; else echo "apikey is set"; fi
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
