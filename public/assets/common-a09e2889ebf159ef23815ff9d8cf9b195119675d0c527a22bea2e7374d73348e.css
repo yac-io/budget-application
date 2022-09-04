@@ -1,0 +1,52 @@
+/* line 1, app/assets/stylesheets/common.scss */
+body {
+  background-color: #F0F0F7;
+  padding-top: 5rem;
+}
+
+/* line 6, app/assets/stylesheets/common.scss */
+thead {
+  background-color: #F5F6FA;
+  color: #A3A6B4;
+  text-transform: uppercase;
+}
+
+/* line 12, app/assets/stylesheets/common.scss */
+.page-content {
+  padding: 20px;
+}
+
+/* line 17, app/assets/stylesheets/common.scss */
+.table-full-size {
+  width: 100%;
+}
+
+/* line 21, app/assets/stylesheets/common.scss */
+.table-full-size th:first-of-type {
+  width: 5%;
+}
+
+/* line 25, app/assets/stylesheets/common.scss */
+.table-full-size td {
+  text-align: left;
+}
+
+/* line 29, app/assets/stylesheets/common.scss */
+td.number {
+  text-align: right;
+}
+
+/* line 33, app/assets/stylesheets/common.scss */
+.credit {
+  color: #4caf50;
+}
+
+/* line 37, app/assets/stylesheets/common.scss */
+.debit {
+  color: #e91e63;
+}
+
+/* line 41, app/assets/stylesheets/common.scss */
+.actions {
+  margin-top: 15px;
+}

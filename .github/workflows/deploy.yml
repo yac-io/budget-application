@@ -28,7 +28,7 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-      - name: Create remote
+      - name: Create remote<
         run: heroku git:remote -a yac-budget
       - name: Deploy
         run: git push -f heroku HEAD:main

@@ -1,0 +1,6 @@
+/* line 5, app/assets/stylesheets/transactions.scss */
+.transaction-currency {
+  font-size: smaller;
+  display: block;
+  font-style: italic;
+}
