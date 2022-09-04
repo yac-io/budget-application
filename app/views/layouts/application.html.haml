@@ -13,7 +13,7 @@
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
   %body
-    = javascript_pack_tag 'app'
+    -# = javascript_include_tag 'app'
     %nav.navbar.navbar-expand-md.fixed-top.navbar-dark.bg-dark
       =link_to 'Budgetizr', root_path, class: 'navbar-brand'
       %button.navbar-toggler{:type => "button", :data => {:toggle => 'collapse', :target=> '#navBarMenu'}}
