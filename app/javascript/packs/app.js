@@ -7,14 +7,16 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+import ujs from "@rails/ujs"
 import "jquery"
 
 import Chartkick from "chartkick";
 window.Chartkick = Chartkick;
-
-
+import 'popper.js'
+import 'bootstrap/dist/js/bootstrap.min'
 import Chart from "chart.js";
 Chartkick.addAdapter(Chart);
+ujs.start();
 
 /*document.addEventListener('turbolinks:load', function () {
     componentHandler.upgradeDom();
