@@ -1,0 +1,5 @@
+/* line 5, app/assets/stylesheets/accounts.scss */
+.account-summary {
+  display: inline-flex;
+  margin: 5px;
+}
