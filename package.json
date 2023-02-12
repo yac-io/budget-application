@@ -2,6 +2,7 @@
   "name": "budget-application",
   "private": true,
   "dependencies": {
+    "@rails/ujs": "7.0.3-1",
     "bootstrap": "4.3.1",
     "chart.js": "^2.8.0",
     "chartkick": "^3.1.0",
@@ -12,8 +13,7 @@
     "vue-resource": "^1.5.2",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "@rails/ujs": "7.0.3-1"
+    "webpack-cli": "^4.10.0"
   },
   "devDependencies": {},
   "scripts": {
