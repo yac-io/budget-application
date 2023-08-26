@@ -30,6 +30,7 @@ ENV VOLTA_HOME /root/.volta
 ENV PATH $VOLTA_HOME/bin:/usr/local/bin:$PATH
 
 RUN volta install node@${NODE_VERSION}
+RUN volta install corepack
 RUN corepack enable
 
 FROM base as build_deps
