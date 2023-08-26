@@ -23,19 +23,13 @@ RUN mkdir -p tmp/pids
 
 SHELL ["/bin/bash", "-c"]
 
-RUN curl https://get.volta.sh | bash
 
 ENV BASH_ENV ~/.bashrc
-ENV VOLTA_HOME /root/.volta
-ENV PATH $VOLTA_HOME/bin:/usr/local/bin:$PATH
 
-RUN volta install node@${NODE_VERSION}
-RUN volta install corepack
-RUN corepack enable
 
 FROM base as build_deps
 
-ARG DEV_PACKAGES="git build-essential libpq-dev wget vim curl gzip xz-utils libsqlite3-dev"
+ARG DEV_PACKAGES="git build-essential libpq-dev wget vim curl gzip xz-utils libsqlite3-dev node"
 ENV DEV_PACKAGES ${DEV_PACKAGES}
 
 RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
@@ -43,6 +37,10 @@ RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
     apt-get update -qq && \
     apt-get install --no-install-recommends -y ${DEV_PACKAGES} \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+RUN node -v
+RUN corepack enable
+
 
 FROM build_deps as gems
 
