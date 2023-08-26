@@ -29,7 +29,8 @@ ENV BASH_ENV ~/.bashrc
 ENV VOLTA_HOME /root/.volta
 ENV PATH $VOLTA_HOME/bin:/usr/local/bin:$PATH
 
-RUN volta install node@${NODE_VERSION} && volta install yarn
+RUN volta install node@${NODE_VERSION}
+RUN corepack enable
 
 FROM base as build_deps
 
