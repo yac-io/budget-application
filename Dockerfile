@@ -26,8 +26,11 @@ SHELL ["/bin/bash", "-c"]
 
 ENV BASH_ENV ~/.bashrc
 
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&\
-    sudo apt-get install -y nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - &&\
+    apt-get install -y nodejs
+
+RUN node -v
+RUN corepack enable
 
 FROM base as build_deps
 
@@ -40,8 +43,7 @@ RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
     apt-get install --no-install-recommends -y ${DEV_PACKAGES} \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-RUN node -v
-RUN corepack enable
+
 
 
 FROM build_deps as gems
