@@ -19,7 +19,7 @@ jobs:
       DATABASE_URL: "postgres://budget:budget@localhost:5432/budget-application_test"
     strategy:
       matrix:
-        node-version: [ 15.x ]
+        node-version: [ 18.x ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
