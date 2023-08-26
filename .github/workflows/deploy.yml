@@ -17,14 +17,6 @@ jobs:
         uses: superfly/flyctl-actions/setup-flyctl@master
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      - name: InstallVolta
-        run: "flyctl ssh console --command 'sh curl https://get.volta.sh | bash'"
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      - name: YarnVersion
-        run: "flyctl ssh console --command 'sh yarn --version'"
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       - name: Deploy
         run: flyctl deploy --remote-only
         env:
