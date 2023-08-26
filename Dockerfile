@@ -27,7 +27,7 @@ SHELL ["/bin/bash", "-c"]
 ENV BASH_ENV ~/.bashrc
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&\
-sudo apt-get install -y nodejs
+    sudo apt-get install -y nodejs
 
 FROM base as build_deps
 
