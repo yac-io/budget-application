@@ -81,7 +81,7 @@ RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 COPY --from=gems /app /app
-COPY --from=node_modules /app/node_modules /app/node_modules
+COPY --from=.yarn /app/.yarn /app/.yarn
 
 ENV SECRET_KEY_BASE 1
 
