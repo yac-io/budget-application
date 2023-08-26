@@ -41,7 +41,7 @@ jobs:
       - name: Install yarn dependencies
         run: |
           corepack enable
-          yarn install --ignore-engines
+          yarn install
           yarn --version
           node --version
       - name: Compile assets
