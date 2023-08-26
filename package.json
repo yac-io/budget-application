@@ -6,6 +6,7 @@
     "bootstrap": "4.3.1",
     "chart.js": "^2.8.0",
     "chartkick": "^3.1.0",
+    "css-loader": "^6.8.1",
     "jquery": "^3.2.1",
     "popper.js": "^1.12.9",
     "vue": "^2.5.16",
