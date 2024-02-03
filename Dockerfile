@@ -83,7 +83,7 @@ RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
 COPY --from=gems /app /app
 COPY --from=node_modules /app/.yarn /app/.yarn
 
-RUN cron -f
+RUN cron &
 
 # Update the crontab
 RUN whenever -w
