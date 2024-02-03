@@ -26,7 +26,6 @@ kill_timeout = "5s"
 
 [processes]
   web = "bin/rails s"
-  worker = "bundle exec sidekiq"
 
 [[services]]
   protocol = "tcp"

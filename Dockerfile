@@ -70,7 +70,7 @@ RUN if [ -f "yarn.lock" ]; then \
 
 FROM base
 
-ARG PROD_PACKAGES="postgresql-client file vim curl gzip libsqlite3-0"
+ARG PROD_PACKAGES="postgresql-client file vim curl gzip libsqlite3-0 cron"
 ENV PROD_PACKAGES=${PROD_PACKAGES}
 
 RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
@@ -82,6 +82,11 @@ RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
 
 COPY --from=gems /app /app
 COPY --from=node_modules /app/.yarn /app/.yarn
+
+RUN cron -f
+
+# Update the crontab
+RUN whenever -w
 
 ENV SECRET_KEY_BASE 1
 
