@@ -18,7 +18,5 @@ module BudgetApplication
     #
     config.time_zone ='Pacific Time (US & Canada)'
     # config.eager_load_paths << Rails.root.join("extras")
-
-    config.active_record.legacy_connection_handling = false
   end
 end
