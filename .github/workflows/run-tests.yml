@@ -32,7 +32,7 @@ jobs:
       - name: Set up database schema
         run: |
           bundle exec rake db:migrate
-          bundle exec rake db:test:load
+          bundle exec rake db:test:prepare
       - name: Install node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
