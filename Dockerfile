@@ -85,14 +85,16 @@ COPY --from=node_modules /app/.yarn /app/.yarn
 
 RUN cron &
 
-# Update the crontab
-RUN whenever -w
 
 ENV SECRET_KEY_BASE 1
 
 COPY . .
 
 RUN bundle exec rails assets:precompile
+
+# Update the crontab
+RUN bundle exec whenever --update-crontab
+
 
 ENV PORT 8080
 
