@@ -1,9 +1,9 @@
 # syntax = docker/dockerfile:experimental
-ARG RUBY_VERSION=2.7.3
+ARG RUBY_VERSION=3.0.4
 ARG VARIANT=jemalloc-slim
 FROM quay.io/evl.ms/fullstaq-ruby:${RUBY_VERSION}-${VARIANT} as base
 
-ARG NODE_VERSION=18
+ARG NODE_VERSION=20
 ARG BUNDLER_VERSION=2.3.9
 
 ARG RAILS_ENV=production
@@ -26,7 +26,7 @@ SHELL ["/bin/bash", "-c"]
 
 ENV BASH_ENV ~/.bashrc
 
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - &&\
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - &&\
     apt-get install -y nodejs
 
 RUN node -v

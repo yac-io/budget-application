@@ -19,10 +19,10 @@ jobs:
       DATABASE_URL: "postgres://budget:budget@localhost:5432/budget-application_test"
     strategy:
       matrix:
-        node-version: [ 18.x ]
+        node-version: [ 20.x ]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
@@ -34,7 +34,7 @@ jobs:
           bundle exec rake db:migrate
           bundle exec rake db:test:prepare
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'

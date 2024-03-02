@@ -14,7 +14,7 @@ kill_timeout = "5s"
 [build]
   [build.args]
     BUNDLER_VERSION = "2.1.4"
-    NODE_VERSION = "14"
+    NODE_VERSION = "20"
     RUBY_VERSION = "3.0.4"
 [deploy]
   release_command = "bundle exec rails db:migrate"
