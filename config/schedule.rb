@@ -20,27 +20,28 @@
 # Learn more: http://github.com/javan/whenever
 
 ENV.each { |k, v| env(k, v) }
+job_type :rake_custom, "cd :path && :environment_variable=:environment bin/bundle exec rake :task --silent :output"
 set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
 
 
 every 1.day do
-  rake 'recurring:daily'
+  rake_custom 'recurring:daily'
 end
 
 every 1.week do
-  rake 'recurring:weekly'
+  rake_custom 'recurring:weekly'
 end
 
 
 every 1.month do
-  rake 'recurring:monthly'
+  rake_custom 'recurring:monthly'
 end
 
 
 every 1.year do
-  rake 'recurring:yearly'
+  rake_custom 'recurring:yearly'
 end
 
 every 1.minute do
-  rake 'recurring:minute'
+  rake_custom 'recurring:minute'
 end
