@@ -20,9 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 
 ENV.each { |k, v| env(k, v) }
-job_type :rake_custom, "cd :path && echo $PATH && echo #{ENV['PATH']} && PATH=/usr/local/bin:$PATH:#{ENV['PATH']} :environment_variable=:environment bundle exec rake :task --silent :output"
-set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
-
+job_type :rake_custom, "cd :path && PATH=/usr/local/bin:$PATH:#{ENV['PATH']} :environment_variable=:environment bundle exec rake :task --silent :output"
 
 every 1.day do
   rake_custom 'recurring:daily'
@@ -40,8 +38,4 @@ end
 
 every 1.year do
   rake_custom 'recurring:yearly'
-end
-
-every 1.minute do
-  rake_custom 'recurring:minute'
 end

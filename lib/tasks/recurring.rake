@@ -81,10 +81,6 @@ namespace :recurring do
     end
   end
 
-  task minute: :environment do
-    puts "Invoked"
-  end
-
 end
 
 
