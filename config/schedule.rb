@@ -21,7 +21,7 @@
 
 env :PATH, ENV['PATH']
 env :GEM_PATH, ENV['GEM_PATH']
-
+env :RAILS_LOG_TO_STDOUT, true
 
 every 1.day do
   rake 'recurring:daily'
@@ -39,4 +39,8 @@ end
 
 every 1.year do
   rake 'recurring:yearly'
+end
+
+every 1.minute do
+  rake 'recurring:minute'
 end
