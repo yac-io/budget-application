@@ -22,6 +22,8 @@
 env :PATH, ENV['PATH']
 env :GEM_PATH, ENV['GEM_PATH']
 env :RAILS_LOG_TO_STDOUT, true
+set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
+
 
 every 1.day do
   rake 'recurring:daily'
