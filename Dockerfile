@@ -95,6 +95,8 @@ RUN bundle exec rails assets:precompile
 # Update the crontab
 RUN bundle exec whenever --update-crontab
 
+RUN echo 'path'
+RUN echo $PATH
 
 ENV PORT 8080
 
