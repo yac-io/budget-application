@@ -41,7 +41,3 @@ end
 every 1.year do
   rake_custom 'recurring:yearly'
 end
-
-every 1.minute do
-  rake_custom 'recurring:minute'
-end
