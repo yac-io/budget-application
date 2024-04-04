@@ -25,7 +25,7 @@ kill_timeout = "5s"
 
 [processes]
   web = "bin/rails s"
-  cron = "cron -f"
+  cron = "supercronic"
 
 [[services]]
   protocol = "tcp"
