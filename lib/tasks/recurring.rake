@@ -83,6 +83,7 @@ namespace :recurring do
 
   task minute: :environment do
     puts "Invoked"
+    puts ENV['DATABASE_URL']
   end
 
 end
