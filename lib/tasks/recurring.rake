@@ -83,6 +83,7 @@ namespace :recurring do
 
   task minute: :environment do
     puts "Invoked"
+    recurring_rule = 'monthly'
     RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).each do |recurring_transaction|
     puts recurring_transaction.name
     end
