@@ -36,7 +36,7 @@ class Account < ApplicationRecord
   end
 
   def months_with_transactions
-    transactions.unscope(:order).group("DATE_TRUNC('month', date)").count
+    transactions.unscope(:order).group("DATE_TRUNC('month', date)").sort("DATE_TRUNC('month', date) DESC").limit(12 * 3).count
   end
 
   def total_transactions_per_month
