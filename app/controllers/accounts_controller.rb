@@ -30,7 +30,7 @@ class AccountsController < ApplicationController
     month ||= Time.zone.now.month
     year ||= Time.zone.now.year
     @date = Time.zone.local(year, month, 1)
-    @transactions = Transaction.where('date >= ? and date <= ? and account_id = ?', @date.at_beginning_of_month.to_date, @date.at_end_of_month.to_date, @account.id).order('date desc, id asc')
+    @transactions = Transaction.includes(:category, :payment_mean).where('date >= ? and date <= ? and account_id = ?', @date.at_beginning_of_month.to_date, @date.at_end_of_month.to_date, @account.id).order('date desc, id asc')
   end
 
   # GET /accounts/1/report

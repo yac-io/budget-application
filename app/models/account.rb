@@ -36,7 +36,7 @@ class Account < ApplicationRecord
   end
 
   def months_with_transactions
-    transactions.group_by {|t| t.date.at_beginning_of_month}
+    transactions.group("DATE_TRUNC('month', date)").count
   end
 
   def total_transactions_per_month
