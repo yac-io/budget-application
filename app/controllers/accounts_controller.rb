@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: %i[show edit update destroy monthly_view report]
+  before_action :set_account, only: %i[show edit update destroy monthly_view report export]
 
   # GET /accounts
   # GET /accounts.json
