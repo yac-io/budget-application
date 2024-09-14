@@ -33,6 +33,10 @@ class AccountsController < ApplicationController
     @transactions = Transaction.includes(:category, :payment_mean).where('date >= ? and date <= ? and transactions.account_id = ?', @date.at_beginning_of_month.to_date, @date.at_end_of_month.to_date, @account.id).order('date desc, id asc')
   end
 
+  def export
+    @transactions = @account.transactions
+  end
+
   # GET /accounts/1/report
   def report
     month = params[:month].to_i unless params[:month].blank? || params[:month].to_i.zero?
