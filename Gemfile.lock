@@ -175,6 +175,7 @@ GEM
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    ostruct (0.6.1)
     pg (1.5.8)
     popper_js (1.16.1)
     psych (5.1.2)
@@ -325,6 +326,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   jsbundling-rails (~> 1.0)
+  ostruct (~> 0.6.1)
   pg (~> 1.2)
   puma (~> 6.4)
   rails (~> 7.0)

@@ -69,3 +69,4 @@ gem 'devise'
 
 gem "chartkick"
 gem 'groupdate'
+gem "ostruct", "~> 0.6.1"
