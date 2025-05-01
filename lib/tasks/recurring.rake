@@ -2,7 +2,7 @@ namespace :recurring do
   desc "Run recurring transactions"
   task daily: :environment do
     recurring_rule = 'daily'
-    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).each do |recurring_transaction|
+    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).find_each do |recurring_transaction|
       transaction = Transaction.new
       transaction.user = recurring_transaction.user
       transaction.name = recurring_transaction.name
@@ -23,7 +23,7 @@ namespace :recurring do
 
   task monthly: :environment do
     recurring_rule = 'monthly'
-    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).each do |recurring_transaction|
+    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).find_each do |recurring_transaction|
       transaction = Transaction.new
       transaction.user = recurring_transaction.user
       transaction.name = recurring_transaction.name
@@ -34,7 +34,7 @@ namespace :recurring do
       transaction.settlement_amount = recurring_transaction.settlement_amount
       transaction.currency = recurring_transaction.settlement_currency
       transaction.amount = recurring_transaction.settlement_amount
-      transaction.date = Time.zone.now
+      transaction.date = Time.zone.local(Time.zone.now.year,Time.zone.now.month, 1)
       transaction.save!
       recurring_transaction.last_run_date = Time.zone.now
       recurring_transaction.save!
@@ -43,7 +43,7 @@ namespace :recurring do
 
   task weekly: :environment do
     recurring_rule = 'weekly'
-    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).each do |recurring_transaction|
+    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).find_each do |recurring_transaction|
       transaction = Transaction.new
       transaction.user = recurring_transaction.user
       transaction.name = recurring_transaction.name
@@ -63,7 +63,7 @@ namespace :recurring do
 
   task yearly: :environment do
     recurring_rule = 'yearly'
-    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).each do |recurring_transaction|
+    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).find_each do |recurring_transaction|
       transaction = Transaction.new
       transaction.user = recurring_transaction.user
       transaction.name = recurring_transaction.name
