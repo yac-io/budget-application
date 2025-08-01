@@ -23,7 +23,7 @@ namespace :recurring do
 
   task monthly: :environment do
     recurring_rule = 'monthly'
-    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).find_each do |recurring_transaction|
+    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).find_each(batch_size: 1) do |recurring_transaction|
       transaction = Transaction.new
       transaction.user = recurring_transaction.user
       transaction.name = recurring_transaction.name
@@ -43,7 +43,7 @@ namespace :recurring do
 
   task weekly: :environment do
     recurring_rule = 'weekly'
-    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).find_each do |recurring_transaction|
+    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).find_each(batch_size: 1) do |recurring_transaction|
       transaction = Transaction.new
       transaction.user = recurring_transaction.user
       transaction.name = recurring_transaction.name
@@ -63,7 +63,7 @@ namespace :recurring do
 
   task yearly: :environment do
     recurring_rule = 'yearly'
-    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).find_each do |recurring_transaction|
+    RecurringTransaction.where('active = ? and recurring_rule = ?', true, recurring_rule).find_each(batch_size: 1) do |recurring_transaction|
       transaction = Transaction.new
       transaction.user = recurring_transaction.user
       transaction.name = recurring_transaction.name
