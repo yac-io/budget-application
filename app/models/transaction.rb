@@ -1,12 +1,12 @@
 class Transaction < ApplicationRecord
-  enum transaction_type: {income: 0, expense: 1}
+  enum :transaction_type, { income: 0, expense: 1 }
 
   scope :expenses, lambda {|account_id|
-    where('account_id = ? and transaction_type = ?', account_id, Transaction.transaction_types[:expense])
+    where(account_id: account_id, transaction_type: :expense)
   }
 
   scope :incomes, lambda {|account_id|
-    where('account_id = ? and transaction_type = ?', account_id, Transaction.transaction_types[:income])
+    where(account_id: account_id, transaction_type: :income)
   }
 
   belongs_to :account
@@ -33,10 +33,6 @@ class Transaction < ApplicationRecord
   end
 
   def set_type
-    if self.settlement_amount >= 0
-      self.transaction_type = Transaction.transaction_types[:income]
-    else
-      self.transaction_type = Transaction.transaction_types[:expense]
-    end
+    self.transaction_type = settlement_amount.to_d >= 0 ? :income : :expense
   end
 end

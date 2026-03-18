@@ -60,6 +60,10 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include RequestSpecHelper, type: :request
+
+  config.before(:each, type: :controller) do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+  end
 end
 
 Shoulda::Matchers.configure do |config|
