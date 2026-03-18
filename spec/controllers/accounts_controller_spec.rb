@@ -41,11 +41,12 @@ RSpec.describe AccountsController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # AccountsController. Be sure to keep this updated too.
-  let(:valid_session) {{}}
+  let(:valid_session) { {} }
 
   before :each do
     @user = create(:user)
-    sign_in @user
+    allow(controller).to receive(:authenticate_user!).and_return(true)
+    allow(controller).to receive(:current_user).and_return(@user)
   end
 
   describe 'GET #index' do

@@ -9,4 +9,10 @@ class User < ApplicationRecord
   has_many :categories
   has_many :payment_means
   has_many :investments
+
+  # Rails 8 passes a single argument to serialize_from_session; Devise 4 expects two.
+  # This shim keeps compatibility by accepting 1 or 2 args and delegating to Devise.
+  def self.serialize_from_session(data, salt = nil)
+    super(data, salt)
+  end
 end
