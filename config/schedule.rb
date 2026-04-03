@@ -24,20 +24,20 @@ job_type :rake_custom, "cd :path && PATH=/usr/local/bin:$PATH:#{ENV['PATH']} :en
 set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
 
 
-every 1.day do
+every 1.day, at: '12:05 am' do
   rake_custom 'recurring:daily'
 end
 
-every 1.week do
+every 1.week, at: '12:15 am' do
   rake_custom 'recurring:weekly'
 end
 
 
-every 1.month do
+every 1.month, at: '12:30 am' do
   rake_custom 'recurring:monthly'
 end
 
 
-every 1.year do
+every 1.year, at: '12:45 am' do
   rake_custom 'recurring:yearly'
 end
