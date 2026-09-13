@@ -9,7 +9,7 @@
     "css-loader": "^6.8.1",
     "jquery": "^3.2.1",
     "popper.js": "^1.12.9",
-    "vue": "^2.5.16",
+    "vue": "^3.0.0",
     "vue-loader": "^14.2.2",
     "vue-resource": "^1.5.2",
     "vue-template-compiler": "^2.5.16",
